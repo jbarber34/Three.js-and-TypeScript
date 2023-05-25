@@ -1618,167 +1618,1543 @@
 // MeshToon Example //
 // ---------------- //
 
-import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import Stats from 'three/examples/jsm/libs/stats.module';
-import { GUI } from 'dat.gui';
+// import * as THREE from 'three';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import Stats from 'three/examples/jsm/libs/stats.module';
+// import { GUI } from 'dat.gui';
 
-const scene = new THREE.Scene();
-scene.add(new THREE.AxesHelper(5));
+// const scene = new THREE.Scene();
+// scene.add(new THREE.AxesHelper(5));
 
-const light = new THREE.PointLight(0xffffff, 1);
-light.position.set(10, 10, 10);
-scene.add(light);
+// const light = new THREE.PointLight(0xffffff, 1);
+// light.position.set(10, 10, 10);
+// scene.add(light);
 
-const camera = new THREE.PerspectiveCamera(
-  75,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
-);
-camera.position.z = 3;
+// const camera = new THREE.PerspectiveCamera(
+//   75,
+//   window.innerWidth / window.innerHeight,
+//   0.1,
+//   1000
+// );
+// camera.position.z = 3;
 
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+// const renderer = new THREE.WebGLRenderer();
+// renderer.setSize(window.innerWidth, window.innerHeight);
+// document.body.appendChild(renderer.domElement);
 
-new OrbitControls(camera, renderer.domElement);
+// new OrbitControls(camera, renderer.domElement);
 
-const boxGeometry = new THREE.BoxGeometry();
-const sphereGeometry = new THREE.SphereGeometry();
-const icosahedronGeometry = new THREE.IcosahedronGeometry(1, 0);
-const planeGeometry = new THREE.PlaneGeometry();
-const torusKnotGeometry = new THREE.TorusKnotGeometry();
+// const boxGeometry = new THREE.BoxGeometry();
+// const sphereGeometry = new THREE.SphereGeometry();
+// const icosahedronGeometry = new THREE.IcosahedronGeometry(1, 0);
+// const planeGeometry = new THREE.PlaneGeometry();
+// const torusKnotGeometry = new THREE.TorusKnotGeometry();
 
-const threeTone = new THREE.TextureLoader().load('img/threeTone.jpg');
-threeTone.minFilter = THREE.NearestFilter;
-threeTone.magFilter = THREE.NearestFilter;
+// const threeTone = new THREE.TextureLoader().load('img/threeTone.jpg');
+// threeTone.minFilter = THREE.NearestFilter;
+// threeTone.magFilter = THREE.NearestFilter;
 
-const fourTone = new THREE.TextureLoader().load('img/fourTone.jpg');
-fourTone.minFilter = THREE.NearestFilter;
-fourTone.magFilter = THREE.NearestFilter;
+// const fourTone = new THREE.TextureLoader().load('img/fourTone.jpg');
+// fourTone.minFilter = THREE.NearestFilter;
+// fourTone.magFilter = THREE.NearestFilter;
 
-const fiveTone = new THREE.TextureLoader().load('img/fiveTone.jpg');
-fiveTone.minFilter = THREE.NearestFilter;
-fiveTone.magFilter = THREE.NearestFilter;
+// const fiveTone = new THREE.TextureLoader().load('img/fiveTone.jpg');
+// fiveTone.minFilter = THREE.NearestFilter;
+// fiveTone.magFilter = THREE.NearestFilter;
 
-const material: THREE.MeshToonMaterial = new THREE.MeshToonMaterial();
+// const material: THREE.MeshToonMaterial = new THREE.MeshToonMaterial();
 
-const cube = new THREE.Mesh(boxGeometry, material);
-cube.position.x = 5;
-scene.add(cube);
+// const cube = new THREE.Mesh(boxGeometry, material);
+// cube.position.x = 5;
+// scene.add(cube);
 
-const sphere = new THREE.Mesh(sphereGeometry, material);
-sphere.position.x = 3;
-scene.add(sphere);
+// const sphere = new THREE.Mesh(sphereGeometry, material);
+// sphere.position.x = 3;
+// scene.add(sphere);
 
-const icosahedron = new THREE.Mesh(icosahedronGeometry, material);
-icosahedron.position.x = 0;
-scene.add(icosahedron);
+// const icosahedron = new THREE.Mesh(icosahedronGeometry, material);
+// icosahedron.position.x = 0;
+// scene.add(icosahedron);
 
-const plane = new THREE.Mesh(planeGeometry, material);
-plane.position.x = -2;
-scene.add(plane);
+// const plane = new THREE.Mesh(planeGeometry, material);
+// plane.position.x = -2;
+// scene.add(plane);
 
-const torusKnot = new THREE.Mesh(torusKnotGeometry, material);
-torusKnot.position.x = -5;
-scene.add(torusKnot);
+// const torusKnot = new THREE.Mesh(torusKnotGeometry, material);
+// torusKnot.position.x = -5;
+// scene.add(torusKnot);
 
-window.addEventListener('resize', onWindowResize, false);
-function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  render();
-}
+// window.addEventListener('resize', onWindowResize, false);
+// function onWindowResize() {
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+//   render();
+// }
 
-const stats = new Stats();
-document.body.appendChild(stats.dom);
+// const stats = new Stats();
+// document.body.appendChild(stats.dom);
 
-const options = {
-  side: {
-    FrontSide: THREE.FrontSide,
-    BackSide: THREE.BackSide,
-    DoubleSide: THREE.DoubleSide,
-  },
-  gradientMap: {
-    Default: null,
-    threeTone: 'threeTone',
-    fourTone: 'fourTone',
-    fiveTone: 'fiveTone',
-  },
-};
+// const options = {
+//   side: {
+//     FrontSide: THREE.FrontSide,
+//     BackSide: THREE.BackSide,
+//     DoubleSide: THREE.DoubleSide,
+//   },
+//   gradientMap: {
+//     Default: null,
+//     threeTone: 'threeTone',
+//     fourTone: 'fourTone',
+//     fiveTone: 'fiveTone',
+//   },
+// };
 
-const gui = new GUI();
+// const gui = new GUI();
 
-const data = {
-  lightColor: light.color.getHex(),
-  color: material.color.getHex(),
-  gradientMap: 'threeTone',
-};
+// const data = {
+//   lightColor: light.color.getHex(),
+//   color: material.color.getHex(),
+//   gradientMap: 'threeTone',
+// };
 
-material.gradientMap = threeTone;
+// material.gradientMap = threeTone;
 
-const lightFolder = gui.addFolder('THREE.Light');
-lightFolder.addColor(data, 'lightColor').onChange(() => {
-  light.color.setHex(Number(data.lightColor.toString().replace('#', '0x')));
-});
-lightFolder.add(light, 'intensity', 0, 4);
+// const lightFolder = gui.addFolder('THREE.Light');
+// lightFolder.addColor(data, 'lightColor').onChange(() => {
+//   light.color.setHex(Number(data.lightColor.toString().replace('#', '0x')));
+// });
+// lightFolder.add(light, 'intensity', 0, 4);
 
-const materialFolder = gui.addFolder('THREE.Material');
-materialFolder
-  .add(material, 'transparent')
-  .onChange(() => (material.needsUpdate = true));
-materialFolder.add(material, 'opacity', 0, 1, 0.01);
-materialFolder.add(material, 'depthTest');
-materialFolder.add(material, 'depthWrite');
-materialFolder
-  .add(material, 'alphaTest', 0, 1, 0.01)
-  .onChange(() => updateMaterial());
-materialFolder.add(material, 'visible');
-materialFolder
-  .add(material, 'side', options.side)
-  .onChange(() => updateMaterial());
-//materialFolder.open()
+// const materialFolder = gui.addFolder('THREE.Material');
+// materialFolder
+//   .add(material, 'transparent')
+//   .onChange(() => (material.needsUpdate = true));
+// materialFolder.add(material, 'opacity', 0, 1, 0.01);
+// materialFolder.add(material, 'depthTest');
+// materialFolder.add(material, 'depthWrite');
+// materialFolder
+//   .add(material, 'alphaTest', 0, 1, 0.01)
+//   .onChange(() => updateMaterial());
+// materialFolder.add(material, 'visible');
+// materialFolder
+//   .add(material, 'side', options.side)
+//   .onChange(() => updateMaterial());
+// //materialFolder.open()
 
-const meshToonMaterialFolder = gui.addFolder('THREE.MeshToonMaterial');
-meshToonMaterialFolder.addColor(data, 'color').onChange(() => {
-  material.color.setHex(Number(data.color.toString().replace('#', '0x')));
-});
+// const meshToonMaterialFolder = gui.addFolder('THREE.MeshToonMaterial');
+// meshToonMaterialFolder.addColor(data, 'color').onChange(() => {
+//   material.color.setHex(Number(data.color.toString().replace('#', '0x')));
+// });
 
-//shininess, specular and flatShading no longer supported in MeshToonMaterial
+// //shininess, specular and flatShading no longer supported in MeshToonMaterial
 
-meshToonMaterialFolder
-  .add(data, 'gradientMap', options.gradientMap)
-  .onChange(() => updateMaterial());
-meshToonMaterialFolder.open();
+// meshToonMaterialFolder
+//   .add(data, 'gradientMap', options.gradientMap)
+//   .onChange(() => updateMaterial());
+// meshToonMaterialFolder.open();
 
-function updateMaterial() {
-  material.side = Number(material.side) as THREE.Side;
-  material.gradientMap = eval(data.gradientMap as string);
-  material.needsUpdate = true;
-}
+// function updateMaterial() {
+//   material.side = Number(material.side) as THREE.Side;
+//   material.gradientMap = eval(data.gradientMap as string);
+//   material.needsUpdate = true;
+// }
 
-function animate() {
-  requestAnimationFrame(animate);
-  plane.rotation.x += 0.01;
-  plane.rotation.y += 0.01;
-  sphere.rotation.x += 0.01;
-  sphere.rotation.y += 0.01;
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
-  icosahedron.rotation.x += 0.01;
-  icosahedron.rotation.y += 0.01;
-  torusKnot.rotation.x += 0.01;
-  torusKnot.rotation.y += 0.01;
+// function animate() {
+//   requestAnimationFrame(animate);
+//   plane.rotation.x += 0.01;
+//   plane.rotation.y += 0.01;
+//   sphere.rotation.x += 0.01;
+//   sphere.rotation.y += 0.01;
+//   cube.rotation.x += 0.01;
+//   cube.rotation.y += 0.01;
+//   icosahedron.rotation.x += 0.01;
+//   icosahedron.rotation.y += 0.01;
+//   torusKnot.rotation.x += 0.01;
+//   torusKnot.rotation.y += 0.01;
 
-  render();
+//   render();
 
-  stats.update();
-}
+//   stats.update();
+// }
 
-function render() {
-  renderer.render(scene, camera);
-}
+// function render() {
+//   renderer.render(scene, camera);
+// }
 
-animate();
+// animate();
+
+// -------------------- //
+// Specular Map Example //
+// -------------------- //
+
+// import * as THREE from 'three';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import Stats from 'three/examples/jsm/libs/stats.module';
+// import { GUI } from 'dat.gui';
+
+// const scene = new THREE.Scene();
+// scene.add(new THREE.AxesHelper(5));
+
+// const light = new THREE.PointLight(0xffffff, 1);
+// light.position.set(0, 5, 10);
+// scene.add(light);
+
+// const camera = new THREE.PerspectiveCamera(
+//   75,
+//   window.innerWidth / window.innerHeight,
+//   0.1,
+//   1000
+// );
+// camera.position.z = 3;
+
+// const renderer = new THREE.WebGLRenderer();
+// renderer.setSize(window.innerWidth, window.innerHeight);
+// document.body.appendChild(renderer.domElement);
+
+// const controls = new OrbitControls(camera, renderer.domElement);
+// // controls.screenSpacePanning = true; // default is now true since three r118. Used so that panning up and down doesn't zoom in/out
+// // controls.addEventListener('change', render);
+
+// const planeGeometry = new THREE.PlaneGeometry(3.6, 1.8);
+
+// const material = new THREE.MeshPhongMaterial();
+
+// // const texture = new THREE.TextureLoader().load('img/grid.png');
+// const texture = new THREE.TextureLoader().load('img/worldColour.5400x2700.jpg');
+// material.map = texture;
+// // const envTexture = new THREE.CubeTextureLoader().load([
+// //   'img/px_50.png',
+// //   'img/nx_50.png',
+// //   'img/py_50.png',
+// //   'img/ny_50.png',
+// //   'img/pz_50.png',
+// //   'img/nz_50.png',
+// // ]);
+// const envTexture = new THREE.CubeTextureLoader().load([
+//   'img/px_eso0932a.jpg',
+//   'img/nx_eso0932a.jpg',
+//   'img/py_eso0932a.jpg',
+//   'img/ny_eso0932a.jpg',
+//   'img/pz_eso0932a.jpg',
+//   'img/nz_eso0932a.jpg',
+// ]);
+// envTexture.mapping = THREE.CubeReflectionMapping;
+// material.envMap = envTexture;
+
+// // const specularTexture = new THREE.TextureLoader().load(
+// //   'img/grayscale-test.png'
+// // );
+// const specularTexture = new THREE.TextureLoader().load('img/earthSpecular.jpg');
+// material.specularMap = specularTexture;
+
+// const plane = new THREE.Mesh(planeGeometry, material);
+// scene.add(plane);
+
+// window.addEventListener('resize', onWindowResize, false);
+// function onWindowResize() {
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+//   render();
+// }
+
+// const stats = new Stats();
+// document.body.appendChild(stats.dom);
+
+// const options = {
+//   side: {
+//     FrontSide: THREE.FrontSide,
+//     BackSide: THREE.BackSide,
+//     DoubleSide: THREE.DoubleSide,
+//   },
+//   combine: {
+//     MultiplyOperation: THREE.MultiplyOperation,
+//     MixOperation: THREE.MixOperation,
+//     AddOperation: THREE.AddOperation,
+//   },
+// };
+// const gui = new GUI();
+
+// const materialFolder = gui.addFolder('THREE.Material');
+// materialFolder.add(material, 'transparent');
+// materialFolder.add(material, 'opacity', 0, 1, 0.01);
+// materialFolder.add(material, 'depthTest');
+// materialFolder.add(material, 'depthWrite');
+// materialFolder
+//   .add(material, 'alphaTest', 0, 1, 0.01)
+//   .onChange(() => updateMaterial());
+// materialFolder.add(material, 'visible');
+// materialFolder
+//   .add(material, 'side', options.side)
+//   .onChange(() => updateMaterial());
+// //materialFolder.open()
+
+// const data = {
+//   color: material.color.getHex(),
+//   emissive: material.emissive.getHex(),
+//   specular: material.specular.getHex(),
+// };
+
+// const meshPhongMaterialFolder = gui.addFolder('THREE.MeshPhongMaterial');
+
+// meshPhongMaterialFolder.addColor(data, 'color').onChange(() => {
+//   material.color.setHex(Number(data.color.toString().replace('#', '0x')));
+// });
+// meshPhongMaterialFolder.addColor(data, 'emissive').onChange(() => {
+//   material.emissive.setHex(Number(data.emissive.toString().replace('#', '0x')));
+// });
+// meshPhongMaterialFolder.addColor(data, 'specular').onChange(() => {
+//   material.specular.setHex(Number(data.specular.toString().replace('#', '0x')));
+// });
+// meshPhongMaterialFolder.add(material, 'shininess', 0, 1024);
+// meshPhongMaterialFolder.add(material, 'wireframe');
+// meshPhongMaterialFolder
+//   .add(material, 'flatShading')
+//   .onChange(() => updateMaterial());
+// meshPhongMaterialFolder
+//   .add(material, 'combine', options.combine)
+//   .onChange(() => updateMaterial());
+// meshPhongMaterialFolder.add(material, 'reflectivity', 0, 1);
+// meshPhongMaterialFolder.open();
+
+// function updateMaterial() {
+//   material.side = Number(material.side) as THREE.Side;
+//   material.combine = Number(material.combine) as THREE.Combine;
+//   material.needsUpdate = true;
+// }
+
+// function animate() {
+//   requestAnimationFrame(animate);
+
+//   render();
+
+//   stats.update();
+// }
+
+// function render() {
+//   renderer.render(scene, camera);
+// }
+
+// animate();
+
+// ------------------------------------- //
+// RoughnessMap and MetalnessMap Example //
+// ------------------------------------- //
+
+// import * as THREE from 'three';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import Stats from 'three/examples/jsm/libs/stats.module';
+// import { GUI } from 'dat.gui';
+
+// const scene = new THREE.Scene();
+// scene.add(new THREE.AxesHelper(5));
+
+// const light = new THREE.PointLight(0xffffff, 2);
+// light.position.set(0, 5, 10);
+// scene.add(light);
+
+// const camera = new THREE.PerspectiveCamera(
+//   75,
+//   window.innerWidth / window.innerHeight,
+//   0.1,
+//   1000
+// );
+// camera.position.z = 3;
+
+// const renderer = new THREE.WebGLRenderer();
+// renderer.setSize(window.innerWidth, window.innerHeight);
+// document.body.appendChild(renderer.domElement);
+
+// const controls = new OrbitControls(camera, renderer.domElement);
+// controls.screenSpacePanning = true; //so that panning up and down doesn't zoom in/out
+// //controls.addEventListener('change', render)
+
+// const planeGeometry = new THREE.PlaneGeometry(3.6, 1.8);
+
+// const material = new THREE.MeshPhysicalMaterial({});
+
+// //const texture = new THREE.TextureLoader().load("img/grid.png")
+// const texture = new THREE.TextureLoader().load('img/worldColour.5400x2700.jpg');
+// material.map = texture;
+// // const envTexture = new THREE.CubeTextureLoader().load(["img/px_50.png", "img/nx_50.png", "img/py_50.png", "img/ny_50.png", "img/pz_50.png", "img/nz_50.png"])
+// const envTexture = new THREE.CubeTextureLoader().load([
+//   'img/px_eso0932a.jpg',
+//   'img/nx_eso0932a.jpg',
+//   'img/py_eso0932a.jpg',
+//   'img/ny_eso0932a.jpg',
+//   'img/pz_eso0932a.jpg',
+//   'img/nz_eso0932a.jpg',
+// ]);
+// envTexture.mapping = THREE.CubeReflectionMapping;
+// material.envMap = envTexture;
+
+// //const specularTexture = new THREE.TextureLoader().load("img/grayscale-test.png")
+// const specularTexture = new THREE.TextureLoader().load('img/earthSpecular.jpg');
+// material.roughnessMap = specularTexture;
+// material.metalnessMap = specularTexture;
+
+// const plane: THREE.Mesh = new THREE.Mesh(planeGeometry, material);
+// scene.add(plane);
+
+// window.addEventListener('resize', onWindowResize, false);
+// function onWindowResize() {
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+//   render();
+// }
+
+// const stats = new Stats();
+// document.body.appendChild(stats.dom);
+
+// const options = {
+//   side: {
+//     FrontSide: THREE.FrontSide,
+//     BackSide: THREE.BackSide,
+//     DoubleSide: THREE.DoubleSide,
+//   },
+// };
+// const gui = new GUI();
+
+// const materialFolder = gui.addFolder('THREE.Material');
+// materialFolder.add(material, 'transparent');
+// materialFolder.add(material, 'opacity', 0, 1, 0.01);
+// materialFolder.add(material, 'depthTest');
+// materialFolder.add(material, 'depthWrite');
+// materialFolder
+//   .add(material, 'alphaTest', 0, 1, 0.01)
+//   .onChange(() => updateMaterial());
+// materialFolder.add(material, 'visible');
+// materialFolder
+//   .add(material, 'side', options.side)
+//   .onChange(() => updateMaterial());
+// //materialFolder.open()
+
+// const data = {
+//   color: material.color.getHex(),
+//   emissive: material.emissive.getHex(),
+// };
+
+// const meshPhysicalMaterialFolder = gui.addFolder(
+//   'THREE.meshPhysicalMaterialFolder'
+// );
+
+// meshPhysicalMaterialFolder.addColor(data, 'color').onChange(() => {
+//   material.color.setHex(Number(data.color.toString().replace('#', '0x')));
+// });
+// meshPhysicalMaterialFolder.addColor(data, 'emissive').onChange(() => {
+//   material.emissive.setHex(Number(data.emissive.toString().replace('#', '0x')));
+// });
+// meshPhysicalMaterialFolder.add(material, 'wireframe');
+// meshPhysicalMaterialFolder
+//   .add(material, 'flatShading')
+//   .onChange(() => updateMaterial());
+// meshPhysicalMaterialFolder.add(material, 'reflectivity', 0, 1);
+// meshPhysicalMaterialFolder.add(material, 'envMapIntensity', 0, 1);
+// meshPhysicalMaterialFolder.add(material, 'roughness', 0, 1);
+// meshPhysicalMaterialFolder.add(material, 'metalness', 0, 1);
+// meshPhysicalMaterialFolder.add(material, 'clearcoat', 0, 1, 0.01);
+// meshPhysicalMaterialFolder.add(material, 'clearcoatRoughness', 0, 1, 0.01);
+// meshPhysicalMaterialFolder.open();
+
+// function updateMaterial() {
+//   material.side = Number(material.side) as THREE.Side;
+//   material.needsUpdate = true;
+// }
+
+// function animate() {
+//   requestAnimationFrame(animate);
+
+//   render();
+
+//   stats.update();
+// }
+
+// function render() {
+//   renderer.render(scene, camera);
+// }
+
+// animate();
+
+// --------------- //
+// BumpMap Example //
+// --------------- //
+
+// import * as THREE from 'three';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import Stats from 'three/examples/jsm/libs/stats.module';
+// import { GUI } from 'dat.gui';
+
+// const scene = new THREE.Scene();
+// scene.add(new THREE.AxesHelper(5));
+
+// const light = new THREE.PointLight(0xffffff, 2);
+// light.position.set(0, 5, 10);
+// scene.add(light);
+
+// const camera = new THREE.PerspectiveCamera(
+//   75,
+//   window.innerWidth / window.innerHeight,
+//   0.1,
+//   1000
+// );
+// camera.position.z = 1;
+
+// const renderer = new THREE.WebGLRenderer();
+// renderer.setSize(window.innerWidth, window.innerHeight);
+// document.body.appendChild(renderer.domElement);
+
+// const controls = new OrbitControls(camera, renderer.domElement);
+// controls.enableDamping = true;
+
+// const planeGeometry = new THREE.PlaneGeometry(3.6, 1.8);
+
+// const material = new THREE.MeshPhongMaterial();
+
+// const texture = new THREE.TextureLoader().load('img/worldColour.5400x2700.jpg');
+// material.map = texture;
+
+// const bumpTexture = new THREE.TextureLoader().load('img/earth_bumpmap.jpg');
+// material.bumpMap = bumpTexture;
+// material.bumpScale = 0.015;
+
+// const plane = new THREE.Mesh(planeGeometry, material);
+// scene.add(plane);
+
+// window.addEventListener('resize', onWindowResize, false);
+// function onWindowResize() {
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+//   render();
+// }
+
+// const stats = new Stats();
+// document.body.appendChild(stats.dom);
+
+// const gui = new GUI();
+// gui.add(material, 'bumpScale', 0, 1, 0.01);
+
+// function animate() {
+//   requestAnimationFrame(animate);
+
+//   controls.update();
+
+//   render();
+
+//   stats.update();
+// }
+
+// function render() {
+//   renderer.render(scene, camera);
+// }
+
+// animate();
+
+// ------------------ //
+// NormalMap Example //
+// ------------------ //
+
+// import * as THREE from 'three';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import Stats from 'three/examples/jsm/libs/stats.module';
+// import { GUI } from 'dat.gui';
+
+// const scene = new THREE.Scene();
+// scene.add(new THREE.AxesHelper(5));
+
+// const light = new THREE.PointLight(0xffffff, 2);
+// light.position.set(0, 2, 5);
+// scene.add(light);
+
+// const camera = new THREE.PerspectiveCamera(
+//   75,
+//   window.innerWidth / window.innerHeight,
+//   0.1,
+//   1000
+// );
+// camera.position.z = 1;
+
+// const renderer = new THREE.WebGLRenderer();
+// renderer.setSize(window.innerWidth, window.innerHeight);
+// document.body.appendChild(renderer.domElement);
+
+// const controls = new OrbitControls(camera, renderer.domElement);
+// controls.enableDamping = true;
+
+// const planeGeometry = new THREE.PlaneGeometry(3.6, 1.8);
+
+// const material = new THREE.MeshPhongMaterial();
+
+// const texture = new THREE.TextureLoader().load('img/worldColour.5400x2700.jpg');
+// material.map = texture;
+
+// const normalTexture = new THREE.TextureLoader().load(
+//   'img/earth_normalmap_8192x4096.jpg'
+// );
+// material.normalMap = normalTexture;
+// material.normalScale.set(2, 2);
+
+// const plane = new THREE.Mesh(planeGeometry, material);
+// scene.add(plane);
+
+// window.addEventListener('resize', onWindowResize, false);
+// function onWindowResize() {
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+//   render();
+// }
+
+// const stats = new Stats();
+// document.body.appendChild(stats.dom);
+
+// const gui = new GUI();
+// gui.add(material.normalScale, 'x', 0, 10, 0.01);
+// gui.add(material.normalScale, 'y', 0, 10, 0.01);
+// gui.add(light.position, 'x', -20, 20).name('Light Pos X');
+
+// function animate() {
+//   requestAnimationFrame(animate);
+
+//   controls.update();
+
+//   render();
+
+//   stats.update();
+// }
+
+// function render() {
+//   renderer.render(scene, camera);
+// }
+
+// animate();
+
+// ------------------------ //
+// DisplacementMap Example //
+// ------------------------ //
+
+// import * as THREE from 'three';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import Stats from 'three/examples/jsm/libs/stats.module';
+// import { GUI } from 'dat.gui';
+
+// const scene = new THREE.Scene();
+// scene.add(new THREE.AxesHelper(5));
+
+// const light = new THREE.PointLight(0xffffff, 2);
+// light.position.set(0, 5, 10);
+// scene.add(light);
+
+// const camera = new THREE.PerspectiveCamera(
+//   75,
+//   window.innerWidth / window.innerHeight,
+//   0.1,
+//   1000
+// );
+// camera.position.z = 3;
+
+// const renderer = new THREE.WebGLRenderer();
+// renderer.setSize(window.innerWidth, window.innerHeight);
+// document.body.appendChild(renderer.domElement);
+
+// const controls = new OrbitControls(camera, renderer.domElement);
+// controls.screenSpacePanning = true; //so that panning up and down doesn't zoom in/out
+// //controls.addEventListener('change', render)
+
+// const planeGeometry = new THREE.PlaneGeometry(3.6, 1.8); //, 360, 180)
+
+// const material = new THREE.MeshPhongMaterial();
+
+// //const texture = new THREE.TextureLoader().load("img/grid.png")
+// const texture = new THREE.TextureLoader().load('img/worldColour.5400x2700.jpg');
+// material.map = texture;
+// // const envTexture = new THREE.CubeTextureLoader().load(["img/px_50.png", "img/nx_50.png", "img/py_50.png", "img/ny_50.png", "img/pz_50.png", "img/nz_50.png"])
+// // const envTexture = new THREE.CubeTextureLoader().load(["img/px_eso0932a.jpg", "img/nx_eso0932a.jpg", "img/py_eso0932a.jpg", "img/ny_eso0932a.jpg", "img/pz_eso0932a.jpg", "img/nz_eso0932a.jpg"])
+// // envTexture.mapping = THREE.CubeReflectionMapping
+// // material.envMap = envTexture
+
+// //const specularTexture = new THREE.TextureLoader().load("img/earthSpecular.jpg")
+// // material.specularMap = specularTexture
+
+// const displacementMap = new THREE.TextureLoader().load(
+//   'img/gebco_bathy.5400x2700_8bit.jpg'
+// );
+// material.displacementMap = displacementMap;
+
+// const plane: THREE.Mesh = new THREE.Mesh(planeGeometry, material);
+// scene.add(plane);
+
+// window.addEventListener('resize', onWindowResize, false);
+// function onWindowResize() {
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+//   render();
+// }
+
+// const stats = new Stats();
+// document.body.appendChild(stats.dom);
+
+// const options = {
+//   side: {
+//     FrontSide: THREE.FrontSide,
+//     BackSide: THREE.BackSide,
+//     DoubleSide: THREE.DoubleSide,
+//   },
+// };
+// const gui = new GUI();
+
+// const materialFolder = gui.addFolder('THREE.Material');
+// materialFolder
+//   .add(material, 'transparent')
+//   .onChange(() => (material.needsUpdate = true));
+// materialFolder.add(material, 'opacity', 0, 1, 0.01);
+// materialFolder.add(material, 'depthTest');
+// materialFolder.add(material, 'depthWrite');
+// materialFolder
+//   .add(material, 'alphaTest', 0, 1, 0.01)
+//   .onChange(() => updateMaterial());
+// materialFolder.add(material, 'visible');
+// materialFolder
+//   .add(material, 'side', options.side)
+//   .onChange(() => updateMaterial());
+// //materialFolder.open()
+
+// const data = {
+//   color: material.color.getHex(),
+//   emissive: material.emissive.getHex(),
+//   specular: material.specular.getHex(),
+// };
+
+// const meshPhongMaterialFolder = gui.addFolder('THREE.meshPhongMaterialFolder');
+
+// meshPhongMaterialFolder.addColor(data, 'color').onChange(() => {
+//   material.color.setHex(Number(data.color.toString().replace('#', '0x')));
+// });
+// meshPhongMaterialFolder.addColor(data, 'emissive').onChange(() => {
+//   material.emissive.setHex(Number(data.emissive.toString().replace('#', '0x')));
+// });
+// meshPhongMaterialFolder.addColor(data, 'specular').onChange(() => {
+//   material.specular.setHex(Number(data.specular.toString().replace('#', '0x')));
+// });
+// meshPhongMaterialFolder.add(material, 'shininess', 0, 1024);
+// meshPhongMaterialFolder.add(material, 'wireframe');
+// meshPhongMaterialFolder
+//   .add(material, 'flatShading')
+//   .onChange(() => updateMaterial());
+// meshPhongMaterialFolder.add(material, 'reflectivity', 0, 1);
+// meshPhongMaterialFolder.add(material, 'refractionRatio', 0, 1);
+// meshPhongMaterialFolder.add(material, 'displacementScale', 0, 1, 0.01);
+// meshPhongMaterialFolder.add(material, 'displacementBias', -1, 1, 0.01);
+// meshPhongMaterialFolder.open();
+
+// function updateMaterial() {
+//   material.side = Number(material.side) as THREE.Side;
+//   material.needsUpdate = true;
+// }
+
+// const planeData = {
+//   width: 3.6,
+//   height: 1.8,
+//   widthSegments: 1,
+//   heightSegments: 1,
+// };
+// const planePropertiesFolder = gui.addFolder('PlaneGeometry');
+// //planePropertiesFolder.add(planeData, 'width', 1, 30).onChange(regeneratePlaneGeometry)
+// //planePropertiesFolder.add(planeData, 'height', 1, 30).onChange(regeneratePlaneGeometry)
+// planePropertiesFolder
+//   .add(planeData, 'widthSegments', 1, 360)
+//   .onChange(regeneratePlaneGeometry);
+// planePropertiesFolder
+//   .add(planeData, 'heightSegments', 1, 180)
+//   .onChange(regeneratePlaneGeometry);
+// planePropertiesFolder.open();
+
+// function regeneratePlaneGeometry() {
+//   let newGeometry = new THREE.PlaneGeometry(
+//     planeData.width,
+//     planeData.height,
+//     planeData.widthSegments,
+//     planeData.heightSegments
+//   );
+//   plane.geometry.dispose();
+//   plane.geometry = newGeometry;
+// }
+
+// function animate() {
+//   requestAnimationFrame(animate);
+
+//   render();
+
+//   stats.update();
+// }
+
+// function render() {
+//   renderer.render(scene, camera);
+// }
+
+// animate();
+
+// -------------------------------------- //
+// DisplacementMap with NormalMap Example //
+// -------------------------------------- //
+
+// import * as THREE from 'three';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import { GUI } from 'dat.gui';
+// import Stats from 'three/examples/jsm/libs/stats.module';
+
+// const scene = new THREE.Scene();
+// const axesHelper = new THREE.AxesHelper(5);
+// scene.add(axesHelper);
+
+// const light = new THREE.PointLight(0xffffff, 2);
+// light.position.set(0, 10, 0);
+// scene.add(light);
+
+// const camera = new THREE.PerspectiveCamera(
+//   75,
+//   window.innerWidth / window.innerHeight,
+//   0.1,
+//   1000
+// );
+// camera.position.set(0, 1, 1);
+
+// const renderer = new THREE.WebGLRenderer();
+// renderer.setSize(window.innerWidth, window.innerHeight);
+// document.body.appendChild(renderer.domElement);
+
+// const controls = new OrbitControls(camera, renderer.domElement);
+
+// const planeGeometry = new THREE.PlaneGeometry(3.6, 1.8, 360, 180);
+
+// const material = new THREE.MeshPhongMaterial();
+
+// const texture = new THREE.TextureLoader().load('img/worldColour.5400x2700.jpg');
+// material.map = texture;
+
+// const displacementMap = new THREE.TextureLoader().load(
+//   'img/gebco_bathy.5400x2700_8bit.jpg'
+// );
+// material.displacementMap = displacementMap;
+// material.displacementScale = 0.3;
+
+// const normalTexture = new THREE.TextureLoader().load(
+//   'img/earth_normalmap_8192x4096.jpg'
+// );
+// material.normalMap = normalTexture;
+// material.normalScale.set(5, 5);
+
+// const plane = new THREE.Mesh(planeGeometry, material);
+// plane.rotation.x = -Math.PI / 2;
+// scene.add(plane);
+
+// window.addEventListener('resize', onWindowResize, false);
+// function onWindowResize() {
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+//   render();
+// }
+
+// const stats = new Stats();
+// document.body.appendChild(stats.dom);
+
+// const options = {
+//   side: {
+//     FrontSide: THREE.FrontSide,
+//     BackSide: THREE.BackSide,
+//     DoubleSide: THREE.DoubleSide,
+//   },
+// };
+
+// const gui = new GUI();
+
+// const materialFolder = gui.addFolder('THREE.Material');
+// materialFolder
+//   .add(material, 'transparent')
+//   .onChange(() => (material.needsUpdate = true));
+// materialFolder.add(material, 'opacity', 0, 1, 0.01);
+// materialFolder.add(material, 'depthTest');
+// materialFolder.add(material, 'depthWrite');
+// materialFolder
+//   .add(material, 'alphaTest', 0, 1, 0.01)
+//   .onChange(() => updateMaterial());
+// materialFolder.add(material, 'visible');
+// materialFolder
+//   .add(material, 'side', options.side)
+//   .onChange(() => updateMaterial());
+// //materialFolder.open()
+
+// const data = {
+//   color: material.color.getHex(),
+//   emissive: material.emissive.getHex(),
+// };
+
+// const meshPhongMaterialFolder = gui.addFolder('THREE.MeshPhongMaterial');
+// meshPhongMaterialFolder.addColor(data, 'color').onChange(() => {
+//   material.color.setHex(Number(data.color.toString().replace('#', '0x')));
+// });
+// meshPhongMaterialFolder.addColor(data, 'emissive').onChange(() => {
+//   material.emissive.setHex(Number(data.emissive.toString().replace('#', '0x')));
+// });
+// meshPhongMaterialFolder.add(material, 'wireframe');
+// meshPhongMaterialFolder
+//   .add(material, 'flatShading')
+//   .onChange(() => updateMaterial());
+// meshPhongMaterialFolder.add(material, 'displacementScale', -1, 1, 0.01);
+// meshPhongMaterialFolder.add(material, 'displacementBias', -1, 1, 0.01);
+// meshPhongMaterialFolder.open();
+
+// const planeData = {
+//   width: 3.6,
+//   height: 1.8,
+//   widthSegments: 180,
+//   heightSegments: 90,
+// };
+
+// const planePropertiesFolder = gui.addFolder('PlaneGeometry');
+// planePropertiesFolder
+//   .add(planeData, 'widthSegments', 1, 360)
+//   .onChange(regeneratePlaneGeometry);
+// planePropertiesFolder
+//   .add(planeData, 'heightSegments', 1, 180)
+//   .onChange(regeneratePlaneGeometry);
+// planePropertiesFolder.open();
+
+// const lightFolder = gui.addFolder('Light');
+// lightFolder.add(light.position, 'x', -10, 10).name('position.x');
+// lightFolder.add(material.normalScale, 'x', 0, 10, 0.01).name('normalScale.x');
+// lightFolder.add(material.normalScale, 'y', 0, 10, 0.01).name('normalScale.y');
+// lightFolder.open();
+
+// function regeneratePlaneGeometry() {
+//   let newGeometry = new THREE.PlaneGeometry(
+//     planeData.width,
+//     planeData.height,
+//     planeData.widthSegments,
+//     planeData.heightSegments
+//   );
+//   plane.geometry.dispose();
+//   plane.geometry = newGeometry;
+// }
+
+// function updateMaterial() {
+//   material.side = Number(material.side) as THREE.Side;
+//   material.needsUpdate = true;
+// }
+
+// function animate() {
+//   requestAnimationFrame(animate);
+//   render();
+//   stats.update();
+// }
+
+// function render() {
+//   renderer.render(scene, camera);
+// }
+
+// animate();
+
+// ---------------------------------- //
+// Material Repeat and Center Example //
+// ---------------------------------- //
+
+// import * as THREE from 'three';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import Stats from 'three/examples/jsm/libs/stats.module';
+// import { GUI } from 'dat.gui';
+
+// const scene = new THREE.Scene();
+// scene.add(new THREE.AxesHelper(5));
+
+// const light = new THREE.PointLight(0xffffff, 2);
+// light.position.set(0, 5, 10);
+// scene.add(light);
+
+// const camera = new THREE.PerspectiveCamera(
+//   75,
+//   window.innerWidth / window.innerHeight,
+//   0.1,
+//   1000
+// );
+// camera.position.z = 3;
+
+// const renderer = new THREE.WebGLRenderer();
+// renderer.setSize(window.innerWidth, window.innerHeight);
+// document.body.appendChild(renderer.domElement);
+
+// const controls = new OrbitControls(camera, renderer.domElement);
+// controls.screenSpacePanning = true; //so that panning up and down doesn't zoom in/out
+// //controls.addEventListener('change', render)
+
+// const planeGeometry = new THREE.PlaneGeometry(3.6, 1.8, 360, 180);
+
+// const material = new THREE.MeshPhongMaterial();
+
+// //const texture = new THREE.TextureLoader().load("img/grid.png")
+// const texture = new THREE.TextureLoader().load('img/worldColour.5400x2700.jpg');
+// material.map = texture;
+// // const envTexture = new THREE.CubeTextureLoader().load(["img/px_50.png", "img/nx_50.png", "img/py_50.png", "img/ny_50.png", "img/pz_50.png", "img/nz_50.png"])
+// // const envTexture = new THREE.CubeTextureLoader().load(["img/px_eso0932a.jpg", "img/nx_eso0932a.jpg", "img/py_eso0932a.jpg", "img/ny_eso0932a.jpg", "img/pz_eso0932a.jpg", "img/nz_eso0932a.jpg"])
+// // envTexture.mapping = THREE.CubeReflectionMapping
+// // material.envMap = envTexture
+
+// //const specularTexture = new THREE.TextureLoader().load("img/earthSpecular.jpg")
+// // material.specularMap = specularTexture
+
+// const displacementMap = new THREE.TextureLoader().load(
+//   'img/gebco_bathy.5400x2700_8bit.jpg'
+// );
+// material.displacementMap = displacementMap;
+
+// const plane: THREE.Mesh = new THREE.Mesh(planeGeometry, material);
+// scene.add(plane);
+
+// window.addEventListener('resize', onWindowResize, false);
+// function onWindowResize() {
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+//   render();
+// }
+
+// const stats = new Stats();
+// document.body.appendChild(stats.dom);
+
+// const options = {
+//   side: {
+//     FrontSide: THREE.FrontSide,
+//     BackSide: THREE.BackSide,
+//     DoubleSide: THREE.DoubleSide,
+//   },
+// };
+// const gui = new GUI();
+
+// const materialFolder = gui.addFolder('THREE.Material');
+// materialFolder.add(material, 'transparent');
+// materialFolder.add(material, 'opacity', 0, 1, 0.01);
+// materialFolder.add(material, 'depthTest');
+// materialFolder.add(material, 'depthWrite');
+// materialFolder
+//   .add(material, 'alphaTest', 0, 1, 0.01)
+//   .onChange(() => updateMaterial());
+// materialFolder.add(material, 'visible');
+// materialFolder
+//   .add(material, 'side', options.side)
+//   .onChange(() => updateMaterial());
+// //materialFolder.open()
+
+// const data = {
+//   color: material.color.getHex(),
+//   emissive: material.emissive.getHex(),
+//   specular: material.specular.getHex(),
+// };
+
+// const meshPhongMaterialFolder = gui.addFolder('THREE.meshPhongMaterialFolder');
+
+// meshPhongMaterialFolder.addColor(data, 'color').onChange(() => {
+//   material.color.setHex(Number(data.color.toString().replace('#', '0x')));
+// });
+// meshPhongMaterialFolder.addColor(data, 'emissive').onChange(() => {
+//   material.emissive.setHex(Number(data.emissive.toString().replace('#', '0x')));
+// });
+// meshPhongMaterialFolder.addColor(data, 'specular').onChange(() => {
+//   material.specular.setHex(Number(data.specular.toString().replace('#', '0x')));
+// });
+// meshPhongMaterialFolder.add(material, 'shininess', 0, 1024);
+// meshPhongMaterialFolder.add(material, 'wireframe');
+// meshPhongMaterialFolder
+//   .add(material, 'flatShading')
+//   .onChange(() => updateMaterial());
+// meshPhongMaterialFolder.add(material, 'reflectivity', 0, 1);
+// meshPhongMaterialFolder.add(material, 'refractionRatio', 0, 1);
+// meshPhongMaterialFolder.add(material, 'displacementScale', 0, 1, 0.01);
+// meshPhongMaterialFolder.add(material, 'displacementBias', -1, 1, 0.01);
+// meshPhongMaterialFolder.open();
+
+// function updateMaterial() {
+//   material.side = Number(material.side) as THREE.Side;
+//   material.needsUpdate = true;
+// }
+
+// const planeData = {
+//   width: 3.6,
+//   height: 1.8,
+//   widthSegments: 360,
+//   heightSegments: 180,
+// };
+
+// const planePropertiesFolder = gui.addFolder('PlaneGeometry');
+// //planePropertiesFolder.add(planeData, 'width', 1, 30).onChange(regeneratePlaneGeometry)
+// //planePropertiesFolder.add(planeData, 'height', 1, 30).onChange(regeneratePlaneGeometry)
+// planePropertiesFolder
+//   .add(planeData, 'widthSegments', 1, 360)
+//   .onChange(regeneratePlaneGeometry);
+// planePropertiesFolder
+//   .add(planeData, 'heightSegments', 1, 180)
+//   .onChange(regeneratePlaneGeometry);
+// planePropertiesFolder.open();
+
+// function regeneratePlaneGeometry() {
+//   const newGeometry = new THREE.PlaneGeometry(
+//     planeData.width,
+//     planeData.height,
+//     planeData.widthSegments,
+//     planeData.heightSegments
+//   );
+//   plane.geometry.dispose();
+//   plane.geometry = newGeometry;
+// }
+
+// const textureFolder = gui.addFolder('Texture');
+// textureFolder.add(texture.repeat, 'x', 0.1, 1, 0.1);
+// textureFolder.add(texture.repeat, 'y', 0.1, 1, 0.1);
+// textureFolder.add(texture.center, 'x', 0, 1, 0.001);
+// textureFolder.add(texture.center, 'y', 0, 1, 0.001);
+
+// textureFolder.open();
+
+// function animate() {
+//   requestAnimationFrame(animate);
+
+//   render();
+
+//   stats.update();
+// }
+
+// function render() {
+//   renderer.render(scene, camera);
+// }
+
+// animate();
+
+// ----------------------- //
+// Texture Mipmaps Example //
+// ----------------------- //
+
+// import * as THREE from 'three';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import Stats from 'three/examples/jsm/libs/stats.module';
+// import { GUI } from 'dat.gui';
+
+// const scene1 = new THREE.Scene();
+// const scene2 = new THREE.Scene();
+
+// const axesHelper1 = new THREE.AxesHelper(5);
+// scene1.add(axesHelper1);
+// const axesHelper2 = new THREE.AxesHelper(5);
+// scene2.add(axesHelper2);
+
+// const camera = new THREE.PerspectiveCamera(
+//   75,
+//   window.innerWidth / window.innerHeight,
+//   0.1,
+//   1000
+// );
+// camera.position.z = 1;
+
+// const renderer = new THREE.WebGLRenderer();
+// renderer.setSize(window.innerWidth, window.innerHeight);
+// document.body.appendChild(renderer.domElement);
+
+// new OrbitControls(camera, renderer.domElement);
+
+// const planeGeometry1 = new THREE.PlaneGeometry();
+// const planeGeometry2 = new THREE.PlaneGeometry();
+
+// const texture1 = new THREE.TextureLoader().load('img/grid.png');
+// const texture2 = texture1.clone();
+
+// const material1 = new THREE.MeshBasicMaterial({ map: texture1 });
+// const material2 = new THREE.MeshBasicMaterial({ map: texture2 });
+
+// texture2.minFilter = THREE.NearestFilter;
+// texture2.magFilter = THREE.NearestFilter;
+
+// const plane1 = new THREE.Mesh(planeGeometry1, material1);
+// const plane2 = new THREE.Mesh(planeGeometry2, material2);
+
+// scene1.add(plane1);
+// scene2.add(plane2);
+
+// window.addEventListener('resize', onWindowResize, false);
+// function onWindowResize() {
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+//   render();
+// }
+
+// const options = {
+//   minFilters: {
+//     NearestFilter: THREE.NearestFilter,
+//     NearestMipMapLinearFilter: THREE.NearestMipMapLinearFilter,
+//     NearestMipMapNearestFilter: THREE.NearestMipMapNearestFilter,
+//     'LinearFilter ': THREE.LinearFilter,
+//     'LinearMipMapLinearFilter (Default)': THREE.LinearMipMapLinearFilter,
+//     LinearMipmapNearestFilter: THREE.LinearMipmapNearestFilter,
+//   },
+//   magFilters: {
+//     NearestFilter: THREE.NearestFilter,
+//     'LinearFilter (Default)': THREE.LinearFilter,
+//   },
+// };
+// const gui = new GUI();
+// const textureFolder = gui.addFolder('THREE.Texture');
+// textureFolder
+//   .add(texture2, 'minFilter', options.minFilters)
+//   .onChange(() => updateMinFilter());
+// textureFolder
+//   .add(texture2, 'magFilter', options.magFilters)
+//   .onChange(() => updateMagFilter());
+// textureFolder.open();
+
+// function updateMinFilter() {
+//   texture2.minFilter = Number(texture2.minFilter) as THREE.TextureFilter;
+//   texture2.needsUpdate = true;
+// }
+// function updateMagFilter() {
+//   texture2.magFilter = Number(texture2.magFilter) as THREE.TextureFilter;
+//   texture2.needsUpdate = true;
+// }
+
+// const stats = new Stats();
+// document.body.appendChild(stats.dom);
+
+// function animate() {
+//   requestAnimationFrame(animate);
+
+//   render();
+
+//   stats.update();
+// }
+
+// function render() {
+//   renderer.setScissorTest(true);
+
+//   renderer.setScissor(0, 0, window.innerWidth / 2 - 2, window.innerHeight);
+//   renderer.render(scene1, camera);
+
+//   renderer.setScissor(
+//     window.innerWidth / 2,
+//     0,
+//     window.innerWidth / 2 - 2,
+//     window.innerHeight
+//   );
+//   renderer.render(scene2, camera);
+
+//   renderer.setScissorTest(false);
+// }
+// animate();
+
+// ---------------------- //
+// Custom Mipmaps Example //
+// ---------------------- //
+
+// import * as THREE from 'three';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import Stats from 'three/examples/jsm/libs/stats.module';
+// import { GUI } from 'dat.gui';
+
+// const scene1 = new THREE.Scene();
+// const scene2 = new THREE.Scene();
+
+// const axesHelper1 = new THREE.AxesHelper(5);
+// scene1.add(axesHelper1);
+// const axesHelper2 = new THREE.AxesHelper(5);
+// scene2.add(axesHelper2);
+
+// const camera = new THREE.PerspectiveCamera(
+//   75,
+//   window.innerWidth / window.innerHeight,
+//   0.1,
+//   1000
+// );
+// camera.position.z = 1;
+
+// const renderer = new THREE.WebGLRenderer();
+// renderer.setSize(window.innerWidth, window.innerHeight);
+// document.body.appendChild(renderer.domElement);
+
+// new OrbitControls(camera, renderer.domElement);
+
+// const planeGeometry1 = new THREE.PlaneGeometry();
+// const planeGeometry2 = new THREE.PlaneGeometry();
+
+// // const texture1 = new THREE.TextureLoader().load("img/grid.png")
+// // const texture2 = new THREE.TextureLoader().load("img/grid.png")
+
+// const mipmap = (size: number, color: string) => {
+//   const imageCanvas = document.createElement('canvas') as HTMLCanvasElement;
+//   const context = imageCanvas.getContext('2d') as CanvasRenderingContext2D;
+//   imageCanvas.width = size;
+//   imageCanvas.height = size;
+//   context.fillStyle = '#888888';
+//   context.fillRect(0, 0, size, size);
+//   context.fillStyle = color;
+//   context.fillRect(0, 0, size / 2, size / 2);
+//   context.fillRect(size / 2, size / 2, size / 2, size / 2);
+//   return imageCanvas;
+// };
+
+// const blankCanvas = document.createElement('canvas') as HTMLCanvasElement;
+// blankCanvas.width = 128;
+// blankCanvas.height = 128;
+
+// const texture1 = new THREE.CanvasTexture(blankCanvas);
+// texture1.mipmaps[0] = mipmap(128, '#ff0000');
+// texture1.mipmaps[1] = mipmap(64, '#00ff00');
+// texture1.mipmaps[2] = mipmap(32, '#0000ff');
+// texture1.mipmaps[3] = mipmap(16, '#880000');
+// texture1.mipmaps[4] = mipmap(8, '#008800');
+// texture1.mipmaps[5] = mipmap(4, '#000088');
+// texture1.mipmaps[6] = mipmap(2, '#008888');
+// texture1.mipmaps[7] = mipmap(1, '#880088');
+// texture1.repeat.set(5, 5);
+// texture1.wrapS = THREE.RepeatWrapping;
+// texture1.wrapT = THREE.RepeatWrapping;
+
+// const texture2 = texture1.clone();
+// texture2.minFilter = THREE.NearestFilter;
+// texture2.magFilter = THREE.NearestFilter;
+
+// const material1 = new THREE.MeshBasicMaterial({ map: texture1 });
+// const material2 = new THREE.MeshBasicMaterial({ map: texture2 });
+
+// const plane1 = new THREE.Mesh(planeGeometry1, material1);
+// const plane2 = new THREE.Mesh(planeGeometry2, material2);
+
+// scene1.add(plane1);
+// scene2.add(plane2);
+
+// window.addEventListener('resize', onWindowResize, false);
+// function onWindowResize() {
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+//   render();
+// }
+
+// const options = {
+//   minFilters: {
+//     NearestFilter: THREE.NearestFilter,
+//     NearestMipMapLinearFilter: THREE.NearestMipMapLinearFilter,
+//     NearestMipMapNearestFilter: THREE.NearestMipMapNearestFilter,
+//     'LinearFilter ': THREE.LinearFilter,
+//     'LinearMipMapLinearFilter (Default)': THREE.LinearMipMapLinearFilter,
+//     LinearMipmapNearestFilter: THREE.LinearMipmapNearestFilter,
+//   },
+//   magFilters: {
+//     NearestFilter: THREE.NearestFilter,
+//     'LinearFilter (Default)': THREE.LinearFilter,
+//   },
+// };
+// const gui = new GUI();
+// const textureFolder = gui.addFolder('THREE.Texture');
+// textureFolder
+//   .add(texture2, 'minFilter', options.minFilters)
+//   .onChange(() => updateMinFilter());
+// // textureFolder
+// //   .add(texture2, 'magFilter', options.magFilters)
+// //   .onChange(() => updateMagFilter());
+// // textureFolder.open();
+
+// function updateMinFilter() {
+//   texture2.minFilter = Number(texture2.minFilter) as THREE.TextureFilter;
+//   texture2.needsUpdate = true;
+// }
+// // function updateMagFilter() {
+// //   texture2.magFilter = Number(texture2.magFilter) as THREE.TextureFilter;
+// //   texture2.needsUpdate = true;
+// // }
+
+// const stats = new Stats();
+// document.body.appendChild(stats.dom);
+
+// function animate() {
+//   requestAnimationFrame(animate);
+
+//   render();
+
+//   stats.update();
+// }
+
+// function render() {
+//   renderer.setScissorTest(true);
+
+//   renderer.setScissor(0, 0, window.innerWidth / 2 - 2, window.innerHeight);
+//   renderer.render(scene1, camera);
+
+//   renderer.setScissor(
+//     window.innerWidth / 2,
+//     0,
+//     window.innerWidth / 2 - 2,
+//     window.innerHeight
+//   );
+//   renderer.render(scene2, camera);
+
+//   renderer.setScissorTest(false);
+// }
+// animate();
+
+// ----------------------------- //
+// Anisotropic Filtering Example //
+// ----------------------------- //
+
+// import * as THREE from 'three';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import Stats from 'three/examples/jsm/libs/stats.module';
+// import { GUI } from 'dat.gui';
+
+// const scene1 = new THREE.Scene();
+// const scene2 = new THREE.Scene();
+
+// const axesHelper1 = new THREE.AxesHelper(5);
+// scene1.add(axesHelper1);
+// const axesHelper2 = new THREE.AxesHelper(5);
+// scene2.add(axesHelper2);
+
+// const camera = new THREE.PerspectiveCamera(
+//   75,
+//   window.innerWidth / window.innerHeight,
+//   0.1,
+//   1000
+// );
+// camera.position.set(0, -0.35, 0.2);
+
+// const renderer = new THREE.WebGLRenderer();
+// renderer.setSize(window.innerWidth, window.innerHeight);
+// document.body.appendChild(renderer.domElement);
+
+// new OrbitControls(camera, renderer.domElement);
+
+// const planeGeometry1 = new THREE.PlaneGeometry(2, 25);
+// const planeGeometry2 = new THREE.PlaneGeometry(2, 25);
+
+// // const texture1 = new THREE.TextureLoader().load("img/grid.png")
+// // const texture2 = new THREE.TextureLoader().load("img/grid.png")
+
+// const mipmap = (size: number, color: string): HTMLCanvasElement => {
+//   const imageCanvas = document.createElement('canvas') as HTMLCanvasElement;
+//   const context = imageCanvas.getContext('2d') as CanvasRenderingContext2D;
+//   imageCanvas.width = size;
+//   imageCanvas.height = size;
+//   context.fillStyle = '#888888';
+//   context.fillRect(0, 0, size, size);
+//   context.fillStyle = color;
+//   context.fillRect(0, 0, size / 2, size / 2);
+//   context.fillRect(size / 2, size / 2, size / 2, size / 2);
+//   return imageCanvas;
+// };
+
+// const blankCanvas = document.createElement('canvas') as HTMLCanvasElement;
+// blankCanvas.width = 128;
+// blankCanvas.height = 128;
+
+// const texture1 = new THREE.CanvasTexture(blankCanvas);
+// texture1.mipmaps[0] = mipmap(128, '#ff0000');
+// texture1.mipmaps[1] = mipmap(64, '#00ff00');
+// texture1.mipmaps[2] = mipmap(32, '#0000ff');
+// texture1.mipmaps[3] = mipmap(16, '#880000');
+// texture1.mipmaps[4] = mipmap(8, '#008800');
+// texture1.mipmaps[5] = mipmap(4, '#000088');
+// texture1.mipmaps[6] = mipmap(2, '#008888');
+// texture1.mipmaps[7] = mipmap(1, '#880088');
+// texture1.repeat.set(5, 50);
+// texture1.wrapS = THREE.RepeatWrapping;
+// texture1.wrapT = THREE.RepeatWrapping;
+
+// const texture2 = texture1.clone();
+// texture2.minFilter = THREE.NearestFilter;
+// texture2.magFilter = THREE.NearestFilter;
+
+// const material1 = new THREE.MeshBasicMaterial({ map: texture1 });
+// const material2 = new THREE.MeshBasicMaterial({ map: texture2 });
+
+// const plane1 = new THREE.Mesh(planeGeometry1, material1);
+// const plane2 = new THREE.Mesh(planeGeometry2, material2);
+
+// scene1.add(plane1);
+// scene2.add(plane2);
+
+// window.addEventListener('resize', onWindowResize, false);
+// function onWindowResize() {
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+//   render();
+// }
+
+// const options = {
+//   minFilters: {
+//     NearestFilter: THREE.NearestFilter,
+//     NearestMipMapLinearFilter: THREE.NearestMipMapLinearFilter,
+//     NearestMipMapNearestFilter: THREE.NearestMipMapNearestFilter,
+//     'LinearFilter ': THREE.LinearFilter,
+//     'LinearMipMapLinearFilter (Default)': THREE.LinearMipMapLinearFilter,
+//     LinearMipmapNearestFilter: THREE.LinearMipmapNearestFilter,
+//   },
+//   magFilters: {
+//     NearestFilter: THREE.NearestFilter,
+//     'LinearFilter (Default)': THREE.LinearFilter,
+//   },
+// };
+// const gui = new GUI();
+// const textureFolder = gui.addFolder('THREE.Texture');
+// textureFolder
+//   .add(texture2, 'minFilter', options.minFilters)
+//   .onChange(() => updateMinFilter());
+// // textureFolder
+// //     .add(texture2, 'magFilter', options.magFilters)
+// //     .onChange(() => updateMagFilter())
+// textureFolder
+//   .add(texture2, 'anisotropy', 1, renderer.capabilities.getMaxAnisotropy())
+//   .onChange(() => updateAnistropy());
+// textureFolder.open();
+
+// function updateAnistropy() {
+//   material2.map = texture2.clone();
+// }
+// function updateMinFilter() {
+//   texture2.minFilter = Number(texture2.minFilter) as THREE.TextureFilter;
+//   texture2.needsUpdate = true;
+// }
+// // function updateMagFilter() {
+// //     texture2.magFilter = Number(texture2.magFilter) as THREE.TextureFilter
+// //     texture2.needsUpdate = true
+// // }
+
+// const stats = new Stats();
+// document.body.appendChild(stats.dom);
+
+// function animate() {
+//   requestAnimationFrame(animate);
+
+//   render();
+
+//   stats.update();
+// }
+
+// function render() {
+//   renderer.setScissorTest(true);
+
+//   renderer.setScissor(0, 0, window.innerWidth / 2 - 2, window.innerHeight);
+//   renderer.render(scene1, camera);
+
+//   renderer.setScissor(
+//     window.innerWidth / 2,
+//     0,
+//     window.innerWidth / 2 - 2,
+//     window.innerHeight
+//   );
+//   renderer.render(scene2, camera);
+
+//   renderer.setScissorTest(false);
+// }
+// animate();
+
+// --------------- //
+// Lights Example //
+// -------------- //
