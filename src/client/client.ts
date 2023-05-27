@@ -5038,3 +5038,1147 @@
 // }
 
 // animate();
+
+// ------------------------ //
+// OBJ Model Loader Example //
+// ------------------------ //
+
+// import * as THREE from 'three';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
+// import Stats from 'three/examples/jsm/libs/stats.module';
+
+// const scene = new THREE.Scene();
+// scene.add(new THREE.AxesHelper(5));
+
+// const light = new THREE.PointLight();
+// light.position.set(2.5, 7.5, 15);
+// scene.add(light);
+
+// const camera = new THREE.PerspectiveCamera(
+//   75,
+//   window.innerWidth / window.innerHeight,
+//   0.1,
+//   1000
+// );
+// camera.position.z = 3;
+
+// const renderer = new THREE.WebGLRenderer();
+// renderer.setSize(window.innerWidth, window.innerHeight);
+// document.body.appendChild(renderer.domElement);
+
+// const controls = new OrbitControls(camera, renderer.domElement);
+// controls.enableDamping = true;
+
+// const material = new THREE.MeshNormalMaterial();
+
+// const objLoader = new OBJLoader();
+// objLoader.load(
+//   'models/monkey2.obj',
+//   (object) => {
+//     // (object.children[0] as THREE.Mesh).material = material;
+//     object.traverse(function (child) {
+//       if ((child as THREE.Mesh).isMesh) {
+//         (child as THREE.Mesh).material = material;
+//       }
+//     });
+//     scene.add(object);
+//   },
+//   (xhr) => {
+//     console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+//   },
+//   (error) => {
+//     console.log(error);
+//   }
+// );
+
+// objLoader.load(
+//   'models/cube.obj',
+//   (object) => {
+//     object.position.x = -2.5;
+//     scene.add(object);
+//   },
+//   (xhr) => {
+//     console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+//   },
+//   (error) => {
+//     console.log(error);
+//   }
+// );
+
+// window.addEventListener('resize', onWindowResize, false);
+// function onWindowResize() {
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+//   render();
+// }
+
+// const stats = new Stats();
+// document.body.appendChild(stats.dom);
+
+// function animate() {
+//   requestAnimationFrame(animate);
+
+//   controls.update();
+
+//   render();
+
+//   stats.update();
+// }
+
+// function render() {
+//   renderer.render(scene, camera);
+// }
+
+// animate();
+
+// ------------------ //
+// MTL Loader Example //
+// ------------------ //
+
+// import * as THREE from 'three';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
+// import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
+// import Stats from 'three/examples/jsm/libs/stats.module';
+
+// const scene = new THREE.Scene();
+// scene.add(new THREE.AxesHelper(5));
+
+// const light = new THREE.PointLight();
+// light.position.set(2.5, 7.5, 15);
+// scene.add(light);
+
+// const camera = new THREE.PerspectiveCamera(
+//   75,
+//   window.innerWidth / window.innerHeight,
+//   0.1,
+//   1000
+// );
+// camera.position.z = 3;
+
+// const renderer = new THREE.WebGLRenderer();
+// renderer.setSize(window.innerWidth, window.innerHeight);
+// document.body.appendChild(renderer.domElement);
+
+// const controls = new OrbitControls(camera, renderer.domElement);
+// controls.enableDamping = true;
+
+// const mtlLoader = new MTLLoader();
+// mtlLoader.load(
+//   'models/monkey.mtl',
+//   (materials) => {
+//     materials.preload();
+//     // console.log(materials);
+//     const objLoader = new OBJLoader();
+//     objLoader.setMaterials(materials);
+//     objLoader.load(
+//       'models/monkey.obj',
+//       (object) => {
+//         scene.add(object);
+//       },
+//       (xhr) => {
+//         console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+//       },
+//       (error) => {
+//         console.log('An error happened');
+//       }
+//     );
+//   },
+//   (xhr) => {
+//     console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+//   },
+//   (error) => {
+//     console.log('An error happened');
+//   }
+// );
+// mtlLoader.load(
+//   'models/monkeyTexture.mtl',
+//   (materials) => {
+//     materials.preload();
+//     // console.log(materials);
+//     const objLoader = new OBJLoader();
+//     objLoader.setMaterials(materials);
+//     objLoader.load(
+//       'models/monkeyTexture.obj',
+//       (object) => {
+//         object.position.x = 2.5;
+//         scene.add(object);
+//       },
+//       (xhr) => {
+//         console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+//       },
+//       (error) => {
+//         console.log('An error happened');
+//       }
+//     );
+//   },
+//   (xhr) => {
+//     console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+//   },
+//   (error) => {
+//     console.log('An error happened');
+//   }
+// );
+
+// window.addEventListener('resize', onWindowResize, false);
+// function onWindowResize() {
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+//   render();
+// }
+
+// const stats = new Stats();
+// document.body.appendChild(stats.dom);
+
+// function animate() {
+//   requestAnimationFrame(animate);
+
+//   controls.update();
+
+//   render();
+
+//   stats.update();
+// }
+
+// function render() {
+//   renderer.render(scene, camera);
+// }
+
+// animate();
+
+// ------------------- //
+// GLTF Loader Example //
+// ------------------- //
+
+// import * as THREE from 'three';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+// import Stats from 'three/examples/jsm/libs/stats.module';
+
+// const scene = new THREE.Scene();
+// scene.add(new THREE.AxesHelper(5));
+
+// // const light = new THREE.SpotLight();
+// // light.position.set(5, 5, 5);
+// // scene.add(light);
+
+// const camera = new THREE.PerspectiveCamera(
+//   75,
+//   window.innerWidth / window.innerHeight,
+//   0.1,
+//   1000
+// );
+// camera.position.z = 2;
+
+// const renderer = new THREE.WebGLRenderer();
+// // renderer.physicallyCorrectLights = true; //deprecated
+// renderer.useLegacyLights = false; //use this instead of setting physicallyCorrectLights=true property
+// renderer.shadowMap.enabled = true;
+// // renderer.outputEncoding = THREE.sRGBEncoding
+// renderer.setSize(window.innerWidth, window.innerHeight);
+// document.body.appendChild(renderer.domElement);
+
+// const controls = new OrbitControls(camera, renderer.domElement);
+// controls.enableDamping = true;
+
+// const loader = new GLTFLoader();
+// loader.load(
+//   'models/monkey.glb',
+//   function (gltf) {
+//     gltf.scene.traverse(function (child) {
+//       if ((child as THREE.Mesh).isMesh) {
+//         const m = child as THREE.Mesh;
+//         m.receiveShadow = true;
+//         m.castShadow = true;
+//       }
+//       if ((child as THREE.Light).isLight) {
+//         const l = child as THREE.Light;
+//         l.castShadow = true;
+//         l.shadow.bias = -0.003;
+//         l.shadow.mapSize.width = 2048;
+//         l.shadow.mapSize.height = 2048;
+//       }
+//     });
+//     scene.add(gltf.scene);
+//   },
+//   (xhr) => {
+//     console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+//   },
+//   (error) => {
+//     console.log(error);
+//   }
+// );
+
+// window.addEventListener('resize', onWindowResize, false);
+// function onWindowResize() {
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+//   render();
+// }
+
+// const stats = new Stats();
+// document.body.appendChild(stats.dom);
+
+// function animate() {
+//   requestAnimationFrame(animate);
+
+//   controls.update();
+
+//   render();
+
+//   stats.update();
+// }
+
+// function render() {
+//   renderer.render(scene, camera);
+// }
+
+// animate();
+
+// -------------------- //
+// DRACO Loader Example //
+// -------------------- //
+
+// import * as THREE from 'three';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+// import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
+// import Stats from 'three/examples/jsm/libs/stats.module';
+
+// const scene = new THREE.Scene();
+// scene.add(new THREE.AxesHelper(5));
+
+// const camera = new THREE.PerspectiveCamera(
+//   75,
+//   window.innerWidth / window.innerHeight,
+//   0.1,
+//   1000
+// );
+// camera.position.z = 2;
+
+// const renderer = new THREE.WebGLRenderer();
+// //renderer.physicallyCorrectLights = true //deprecated
+// renderer.useLegacyLights = false; //use this instead of setting physicallyCorrectLights=true property
+// renderer.shadowMap.enabled = true;
+// renderer.setSize(window.innerWidth, window.innerHeight);
+// document.body.appendChild(renderer.domElement);
+
+// const controls = new OrbitControls(camera, renderer.domElement);
+// controls.enableDamping = true;
+
+// // Note that since Three release 148, you will find the Draco libraries in the `.\node_modules\three\examples\jsm\libs\draco\` folder.
+// const draco = new DRACOLoader();
+// draco.setDecoderConfig({ type: 'js' });
+// draco.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
+
+// const loader = new GLTFLoader();
+// loader.setDRACOLoader(draco);
+// loader.load(
+//   'models/monkey_compressed.glb',
+//   function (gltf) {
+//     gltf.scene.traverse(function (child) {
+//       if ((child as THREE.Mesh).isMesh) {
+//         const m = child as THREE.Mesh;
+//         m.receiveShadow = true;
+//         m.castShadow = true;
+//       }
+//       if ((child as THREE.Light).isLight) {
+//         const l = child as THREE.Light;
+//         l.castShadow = true;
+//         l.shadow.bias = -0.003;
+//         l.shadow.mapSize.width = 2048;
+//         l.shadow.mapSize.height = 2048;
+//       }
+//     });
+//     scene.add(gltf.scene);
+//   },
+//   (xhr) => {
+//     console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+//   },
+//   (error) => {
+//     console.log(error);
+//   }
+// );
+
+// window.addEventListener('resize', onWindowResize, false);
+// function onWindowResize() {
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+//   render();
+// }
+
+// const stats = new Stats();
+// document.body.appendChild(stats.dom);
+
+// function animate() {
+//   requestAnimationFrame(animate);
+
+//   controls.update();
+
+//   render();
+
+//   stats.update();
+// }
+
+// function render() {
+//   renderer.render(scene, camera);
+// }
+
+// animate();
+
+// --------------------- //
+// Textured GLTF Example //
+// --------------------- //
+
+// import * as THREE from 'three';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+// import Stats from 'three/examples/jsm/libs/stats.module';
+
+// const scene = new THREE.Scene();
+// scene.add(new THREE.AxesHelper(5));
+
+// const camera = new THREE.PerspectiveCamera(
+//   75,
+//   window.innerWidth / window.innerHeight,
+//   0.1,
+//   1000
+// );
+// camera.position.z = 2;
+
+// const renderer = new THREE.WebGLRenderer();
+// //renderer.physicallyCorrectLights = true //deprecated
+// renderer.useLegacyLights = false; //use this instead of setting physicallyCorrectLights=true property
+// renderer.shadowMap.enabled = true;
+// renderer.outputEncoding = THREE.sRGBEncoding;
+// renderer.setSize(window.innerWidth, window.innerHeight);
+// document.body.appendChild(renderer.domElement);
+
+// const controls = new OrbitControls(camera, renderer.domElement);
+// controls.enableDamping = true;
+
+// const loader = new GLTFLoader();
+// loader.load(
+//   'models/monkey_textured.glb',
+//   function (gltf) {
+//     gltf.scene.traverse(function (child) {
+//       if ((child as THREE.Mesh).isMesh) {
+//         const m = child as THREE.Mesh;
+//         m.receiveShadow = true;
+//         m.castShadow = true;
+//       }
+//       if ((child as THREE.Light).isLight) {
+//         const l = child as THREE.Light;
+//         l.castShadow = true;
+//         l.shadow.bias = -0.003;
+//         l.shadow.mapSize.width = 2048;
+//         l.shadow.mapSize.height = 2048;
+//       }
+//     });
+//     scene.add(gltf.scene);
+//   },
+//   (xhr) => {
+//     console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+//   },
+//   (error) => {
+//     console.log(error);
+//   }
+// );
+
+// window.addEventListener('resize', onWindowResize, false);
+// function onWindowResize() {
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+//   render();
+// }
+
+// const stats = new Stats();
+// document.body.appendChild(stats.dom);
+
+// function animate() {
+//   requestAnimationFrame(animate);
+
+//   controls.update();
+
+//   render();
+
+//   stats.update();
+// }
+
+// function render() {
+//   renderer.render(scene, camera);
+// }
+
+// animate();
+
+// ------------------ //
+// FBX Loader Example //
+// ------------------ //
+
+// #MightUse
+// import * as THREE from 'three';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
+// import Stats from 'three/examples/jsm/libs/stats.module';
+
+// const scene = new THREE.Scene();
+// scene.add(new THREE.AxesHelper(5));
+
+// const light = new THREE.PointLight();
+// light.position.set(0.8, 1.4, 1.0);
+// scene.add(light);
+
+// const ambientLight = new THREE.AmbientLight();
+// scene.add(ambientLight);
+
+// const camera = new THREE.PerspectiveCamera(
+//   75,
+//   window.innerWidth / window.innerHeight,
+//   0.1,
+//   1000
+// );
+// camera.position.set(0.8, 1.4, 1.0);
+
+// const renderer = new THREE.WebGLRenderer();
+// renderer.setSize(window.innerWidth, window.innerHeight);
+// document.body.appendChild(renderer.domElement);
+
+// const controls = new OrbitControls(camera, renderer.domElement);
+// controls.enableDamping = true;
+// controls.target.set(0, 1, 0);
+
+// //const material = new THREE.MeshNormalMaterial()
+
+// const fbxLoader = new FBXLoader();
+// fbxLoader.load(
+//   'models/ninja.fbx',
+//   (object) => {
+//     object.traverse(function (child) {
+//       //   console.log(child.name);
+//       if ((child as THREE.Mesh).isMesh) {
+//         // (child as THREE.Mesh).material = material
+//         if ((child as THREE.Mesh).material) {
+//           (
+//             (child as THREE.Mesh).material as THREE.MeshBasicMaterial
+//           ).transparent = false;
+//         }
+//       }
+//     });
+//     object.scale.set(0.01, 0.01, 0.01);
+//     scene.add(object);
+//   },
+//   (xhr) => {
+//     console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+//   },
+//   (error) => {
+//     console.log(error);
+//   }
+// );
+
+// window.addEventListener('resize', onWindowResize, false);
+// function onWindowResize() {
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+//   render();
+// }
+
+// const stats = new Stats();
+// document.body.appendChild(stats.dom);
+
+// function animate() {
+//   requestAnimationFrame(animate);
+
+//   controls.update();
+
+//   render();
+
+//   stats.update();
+// }
+
+// function render() {
+//   renderer.render(scene, camera);
+// }
+
+// animate();
+
+// ---------------------- //
+// FBX Animations Example //
+// ---------------------- //
+
+// #MightUse
+// import * as THREE from 'three';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
+// import Stats from 'three/examples/jsm/libs/stats.module';
+// import { GUI } from 'dat.gui';
+
+// const scene = new THREE.Scene();
+// scene.add(new THREE.AxesHelper(5));
+
+// const light = new THREE.PointLight();
+// light.position.set(2.5, 7.5, 15);
+// scene.add(light);
+
+// const camera = new THREE.PerspectiveCamera(
+//   75,
+//   window.innerWidth / window.innerHeight,
+//   0.1,
+//   1000
+// );
+// camera.position.set(0.8, 1.4, 1.0);
+
+// const renderer = new THREE.WebGLRenderer();
+// renderer.setSize(window.innerWidth, window.innerHeight);
+// document.body.appendChild(renderer.domElement);
+
+// const controls = new OrbitControls(camera, renderer.domElement);
+// controls.enableDamping = true;
+// controls.target.set(0, 1, 0);
+
+// let mixer: THREE.AnimationMixer;
+// let modelReady = false;
+// const animationActions: THREE.AnimationAction[] = [];
+// let activeAction: THREE.AnimationAction;
+// let lastAction: THREE.AnimationAction;
+// const fbxLoader: FBXLoader = new FBXLoader();
+
+// fbxLoader.load(
+//   'models/ninja.fbx',
+//   (object) => {
+//     object.scale.set(0.01, 0.01, 0.01);
+//     mixer = new THREE.AnimationMixer(object);
+
+//     const animationAction = mixer.clipAction(
+//       (object as THREE.Object3D).animations[0]
+//     );
+//     animationActions.push(animationAction);
+//     animationsFolder.add(animations, 'default');
+//     activeAction = animationActions[0];
+
+//     scene.add(object);
+
+//     // // add an animation from another file
+//     fbxLoader.load(
+//       'models/ninja@baseballSwing.fbx',
+//       (object) => {
+//         console.log('loaded swing');
+//         const animationAction = mixer.clipAction(
+//           (object as THREE.Object3D).animations[0]
+//         );
+//         animationActions.push(animationAction);
+//         animationsFolder.add(animations, 'baseballSwing');
+
+//         // add an animation from another file
+//         fbxLoader.load(
+//           'models/ninja@baseballPitch.fbx',
+//           (object) => {
+//             console.log('loaded pitch');
+//             console.log((object as THREE.Object3D).animations);
+
+//             const animationAction = mixer.clipAction(
+//               (object as THREE.Object3D).animations[0]
+//             );
+//             animationActions.push(animationAction);
+//             animationsFolder.add(animations, 'baseballPitch');
+
+//             // add an animation from another file
+//             fbxLoader.load(
+//               'models/ninja@mmaKick.fbx',
+//               (object) => {
+//                 console.log('loaded kick');
+//                 // (object as THREE.Object3D).animations[0].tracks.shift(); //delete the specific track that moves the object forward while running
+//                 //console.dir((object as THREE.Object3D).animations[0])
+//                 const animationAction = mixer.clipAction(
+//                   (object as THREE.Object3D).animations[0]
+//                 );
+//                 animationActions.push(animationAction);
+//                 animationsFolder.add(animations, 'mmaKick');
+
+//                 modelReady = true;
+//               },
+//               (xhr) => {
+//                 console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+//               },
+//               (error) => {
+//                 console.log(error);
+//               }
+//             );
+//           },
+//           (xhr) => {
+//             console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+//           },
+//           (error) => {
+//             console.log(error);
+//           }
+//         );
+//       },
+//       (xhr) => {
+//         console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+//       },
+//       (error) => {
+//         console.log(error);
+//       }
+//     );
+//   },
+//   (xhr) => {
+//     console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+//   },
+//   (error) => {
+//     console.log(error);
+//   }
+// );
+
+// window.addEventListener('resize', onWindowResize, false);
+// function onWindowResize() {
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+//   render();
+// }
+
+// const stats = new Stats();
+// document.body.appendChild(stats.dom);
+
+// const animations = {
+//   default: function () {
+//     setAction(animationActions[0]);
+//   },
+//   baseballSwing: function () {
+//     setAction(animationActions[1]);
+//   },
+//   baseballPitch: function () {
+//     setAction(animationActions[2]);
+//   },
+//   mmaKick: function () {
+//     setAction(animationActions[3]);
+//   },
+// };
+
+// const setAction = (toAction: THREE.AnimationAction) => {
+//   if (toAction != activeAction) {
+//     lastAction = activeAction;
+//     activeAction = toAction;
+//     // lastAction.stop();
+//     lastAction.fadeOut(1);
+//     activeAction.reset();
+//     activeAction.fadeIn(1);
+//     activeAction.play();
+//   }
+// };
+
+// const gui = new GUI();
+// const animationsFolder = gui.addFolder('Animations');
+// animationsFolder.open();
+
+// const clock = new THREE.Clock();
+
+// function animate() {
+//   requestAnimationFrame(animate);
+
+//   controls.update();
+
+//   if (modelReady) mixer.update(clock.getDelta());
+
+//   render();
+
+//   stats.update();
+// }
+
+// function render() {
+//   renderer.render(scene, camera);
+// }
+
+// animate();
+
+// ----------------------- //
+// GLTF Animations Example //
+// ----------------------- //
+
+// #MightUse #BaseballField
+// import * as THREE from 'three';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+// import Stats from 'three/examples/jsm/libs/stats.module';
+// import { GUI } from 'dat.gui';
+
+// const scene = new THREE.Scene();
+// scene.add(new THREE.AxesHelper(5));
+
+// const light1 = new THREE.PointLight(0xffffff, 2);
+// light1.position.set(2.5, 2.5, 2.5);
+// scene.add(light1);
+
+// const light2 = new THREE.PointLight(0xffffff, 2);
+// light2.position.set(-2.5, 2.5, 2.5);
+// scene.add(light2);
+
+// const camera = new THREE.PerspectiveCamera(
+//   75,
+//   window.innerWidth / window.innerHeight,
+//   0.1,
+//   1000
+// );
+// camera.position.set(0.8, 1.4, 1.0);
+
+// const renderer = new THREE.WebGLRenderer();
+// renderer.setSize(window.innerWidth, window.innerHeight);
+// document.body.appendChild(renderer.domElement);
+
+// const controls = new OrbitControls(camera, renderer.domElement);
+// controls.enableDamping = true;
+// controls.target.set(0, 1, 0);
+
+// let mixer: THREE.AnimationMixer;
+// let modelReady = false;
+// const animationActions: THREE.AnimationAction[] = [];
+// let activeAction: THREE.AnimationAction;
+// let lastAction: THREE.AnimationAction;
+// const gltfLoader = new GLTFLoader();
+
+// gltfLoader.load(
+//   'models/ninja.glb',
+//   (gltf) => {
+//     // gltf.scene.scale.set(.01, .01, .01)
+
+//     mixer = new THREE.AnimationMixer(gltf.scene);
+
+//     const animationAction = mixer.clipAction((gltf as any).animations[0]);
+//     animationActions.push(animationAction);
+//     animationsFolder.add(animations, 'default');
+//     activeAction = animationActions[0];
+
+//     gltf.scene.rotateY(Math.PI / 2);
+
+//     scene.add(gltf.scene);
+
+//     //add an animation from another file
+//     gltfLoader.load(
+//       'models/ninja@baseballSwing.glb',
+//       (gltf) => {
+//         console.log('loaded baseballSwing');
+//         const animationAction = mixer.clipAction((gltf as any).animations[0]);
+//         animationActions.push(animationAction);
+//         animationsFolder.add(animations, 'baseballSwing');
+
+//         //add an animation from another file
+//         gltfLoader.load(
+//           'models/ninja@baseballPitch.glb',
+//           (gltf) => {
+//             console.log('loaded baseballPitch');
+//             const animationAction = mixer.clipAction(
+//               (gltf as any).animations[0]
+//             );
+//             animationActions.push(animationAction);
+//             animationsFolder.add(animations, 'baseballPitch');
+
+//             //add an animation from another file
+//             gltfLoader.load(
+//               'models/ninja@mmaKick.glb',
+//               (gltf) => {
+//                 console.log('loaded mmaKick');
+//                 (gltf as any).animations[0].tracks.shift(); //delete the specific track that moves the object forward while running
+//                 const animationAction = mixer.clipAction(
+//                   (gltf as any).animations[0]
+//                 );
+//                 animationActions.push(animationAction);
+//                 animationsFolder.add(animations, 'mmaKick');
+
+//                 modelReady = true;
+//               },
+//               (xhr) => {
+//                 console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+//               },
+//               (error) => {
+//                 console.log(error);
+//               }
+//             );
+//           },
+//           (xhr) => {
+//             console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+//           },
+//           (error) => {
+//             console.log(error);
+//           }
+//         );
+//       },
+//       (xhr) => {
+//         console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+//       },
+//       (error) => {
+//         console.log(error);
+//       }
+//     );
+//   },
+//   (xhr) => {
+//     console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+//   },
+//   (error) => {
+//     console.log(error);
+//   }
+// );
+
+// gltfLoader.load(
+//   'models/baseballField.glb',
+//   (gltf) => {
+//     gltf.scene.position.set(15, -0.1, 1.2);
+
+//     mixer = new THREE.AnimationMixer(gltf.scene);
+
+//     scene.add(gltf.scene);
+//   },
+//   (xhr) => {
+//     console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+//   },
+//   (error) => {
+//     console.log(error);
+//   }
+// );
+
+// window.addEventListener('resize', onWindowResize, false);
+// function onWindowResize() {
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+//   render();
+// }
+
+// const stats = new Stats();
+// document.body.appendChild(stats.dom);
+
+// const animations = {
+//   default: function () {
+//     setAction(animationActions[0]);
+//   },
+//   baseballSwing: function () {
+//     setAction(animationActions[1]);
+//   },
+//   baseballPitch: function () {
+//     setAction(animationActions[2]);
+//   },
+//   mmaKick: function () {
+//     setAction(animationActions[3]);
+//   },
+// };
+
+// const setAction = (toAction: THREE.AnimationAction) => {
+//   if (toAction != activeAction) {
+//     lastAction = activeAction;
+//     activeAction = toAction;
+//     //lastAction.stop()
+//     lastAction.fadeOut(1);
+//     activeAction.reset();
+//     activeAction.fadeIn(1);
+//     activeAction.play();
+//   }
+// };
+
+// const gui = new GUI();
+// const animationsFolder = gui.addFolder('Animations');
+// animationsFolder.open();
+
+// const clock = new THREE.Clock();
+
+// function animate() {
+//   requestAnimationFrame(animate);
+
+//   controls.update();
+
+//   if (modelReady) mixer.update(clock.getDelta());
+
+//   render();
+
+//   stats.update();
+// }
+
+// function render() {
+//   renderer.render(scene, camera);
+// }
+
+// animate();
+
+// ------------------------------ //
+// GLTF Custom Animations Example //
+// ------------------------------ //
+
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import Stats from 'three/examples/jsm/libs/stats.module';
+
+const scene = new THREE.Scene();
+scene.add(new THREE.AxesHelper(5));
+
+const camera = new THREE.PerspectiveCamera(
+  75,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  1000
+);
+camera.position.set(4, 4, 4);
+
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+
+let mixer: THREE.AnimationMixer;
+let modelReady = false;
+
+const gltfLoader = new GLTFLoader();
+
+const dropzone = document.getElementById('dropzone') as HTMLDivElement;
+
+dropzone.ondragover = dropzone.ondragenter = function (evt) {
+  evt.preventDefault();
+};
+dropzone.ondrop = function (evt: DragEvent) {
+  evt.stopPropagation();
+  evt.preventDefault();
+
+  //clear the scene
+  for (let i = scene.children.length - 1; i >= 0; i--) {
+    scene.remove(scene.children[i]);
+  }
+  //clear the checkboxes
+  const myNode = document.getElementById('animationsPanel') as HTMLDivElement;
+  while (myNode.firstChild) {
+    myNode.removeChild(myNode.lastChild as any);
+  }
+
+  const axesHelper = new THREE.AxesHelper(5);
+  scene.add(axesHelper);
+
+  const light1 = new THREE.DirectionalLight(new THREE.Color(0xffcccc));
+  light1.position.set(-1, 1, 1);
+  scene.add(light1);
+
+  const light2 = new THREE.DirectionalLight(new THREE.Color(0xccffcc));
+  light2.position.set(1, 1, 1);
+  scene.add(light2);
+
+  const light3 = new THREE.DirectionalLight(new THREE.Color(0xccccff));
+  light3.position.set(0, -1, 0);
+  scene.add(light3);
+
+  const files = (evt.dataTransfer as DataTransfer).files;
+  const reader = new FileReader();
+  reader.onload = function () {
+    gltfLoader.parse(
+      reader.result as string,
+      '/',
+      (gltf: GLTF) => {
+        console.log(gltf.scene);
+
+        mixer = new THREE.AnimationMixer(gltf.scene);
+
+        console.log(gltf.animations);
+
+        if (gltf.animations.length > 0) {
+          const animationsPanel = document.getElementById(
+            'animationsPanel'
+          ) as HTMLDivElement;
+          const ul = document.createElement('UL') as HTMLUListElement;
+          const ulElem = animationsPanel.appendChild(ul);
+
+          gltf.animations.forEach((a: THREE.AnimationClip, i) => {
+            const li = document.createElement('UL') as HTMLLIElement;
+            const liElem = ulElem.appendChild(li);
+
+            const checkBox = document.createElement(
+              'INPUT'
+            ) as HTMLInputElement;
+            checkBox.id = 'checkbox_' + i;
+            checkBox.type = 'checkbox';
+            checkBox.addEventListener('change', (e: Event) => {
+              if ((e.target as HTMLInputElement).checked) {
+                mixer.clipAction((gltf as any).animations[i]).play();
+              } else {
+                mixer.clipAction((gltf as any).animations[i]).stop();
+              }
+            });
+            liElem.appendChild(checkBox);
+
+            const label = document.createElement('LABEL') as HTMLLabelElement;
+            label.htmlFor = 'checkbox_' + i;
+            label.innerHTML = a.name;
+            liElem.appendChild(label);
+
+            mixer.clipAction((gltf as any).animations[i]).play();
+          });
+
+          if (gltf.animations.length > 1) {
+            const btnPlayAll = document.getElementById(
+              'btnPlayAll'
+            ) as HTMLButtonElement;
+            btnPlayAll.addEventListener('click', (e: Event) => {
+              mixer.stopAllAction();
+              gltf.animations.forEach((a: THREE.AnimationClip) => {
+                mixer.clipAction(a).play();
+              });
+            });
+
+            btnPlayAll.style.display = 'block';
+          }
+        } else {
+          const animationsPanel = document.getElementById(
+            'animationsPanel'
+          ) as HTMLDivElement;
+          animationsPanel.innerHTML = 'No animations found in model';
+        }
+
+        scene.add(gltf.scene);
+
+        const bbox = new THREE.Box3().setFromObject(gltf.scene);
+        controls.target.x = (bbox.min.x + bbox.max.x) / 2;
+        controls.target.y = (bbox.min.y + bbox.max.y) / 2;
+        controls.target.z = (bbox.min.z + bbox.max.z) / 2;
+
+        modelReady = true;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
+  reader.readAsArrayBuffer(files[0]);
+};
+
+window.addEventListener('resize', onWindowResize, false);
+function onWindowResize() {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  render();
+}
+
+const stats = new Stats();
+document.body.appendChild(stats.dom);
+
+const clock = new THREE.Clock();
+
+function animate() {
+  requestAnimationFrame(animate);
+
+  controls.update();
+
+  if (modelReady) mixer.update(clock.getDelta());
+
+  render();
+
+  stats.update();
+}
+
+function render() {
+  renderer.render(scene, camera);
+}
+
+animate();
