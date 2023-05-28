@@ -6765,23 +6765,602 @@
 // Raycaster Measurements Example //
 // ------------------------------ //
 
+// import * as THREE from 'three';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+// import Stats from 'three/examples/jsm/libs/stats.module';
+// import {
+//   CSS2DRenderer,
+//   CSS2DObject,
+// } from 'three/examples/jsm/renderers/CSS2DRenderer';
+
+// const scene = new THREE.Scene();
+
+// const light = new THREE.SpotLight();
+// light.position.set(12.5, 12.5, 12.5);
+// light.castShadow = true;
+// light.shadow.mapSize.width = 1024;
+// light.shadow.mapSize.height = 1024;
+// scene.add(light);
+
+// const camera = new THREE.PerspectiveCamera(
+//   75,
+//   window.innerWidth / window.innerHeight,
+//   0.1,
+//   1000
+// );
+// camera.position.set(15, 15, 15);
+
+// const renderer = new THREE.WebGLRenderer();
+// renderer.shadowMap.enabled = true;
+// renderer.outputEncoding = THREE.sRGBEncoding;
+// renderer.setSize(window.innerWidth, window.innerHeight);
+// document.body.appendChild(renderer.domElement);
+
+// const labelRenderer = new CSS2DRenderer();
+// labelRenderer.setSize(window.innerWidth, window.innerHeight);
+// labelRenderer.domElement.style.position = 'absolute';
+// labelRenderer.domElement.style.top = '0px';
+// labelRenderer.domElement.style.pointerEvents = 'none';
+// document.body.appendChild(labelRenderer.domElement);
+
+// const controls = new OrbitControls(camera, renderer.domElement);
+// controls.enableDamping = true;
+
+// const pickableObjects: THREE.Mesh[] = [];
+
+// const loader = new GLTFLoader();
+// loader.load(
+//   'models/simplescene.glb',
+//   function (gltf) {
+//     gltf.scene.traverse(function (child) {
+//       if ((child as THREE.Mesh).isMesh) {
+//         const m = child as THREE.Mesh;
+//         switch (m.name) {
+//           case 'Plane':
+//             m.receiveShadow = true;
+//             break;
+//           default:
+//             m.castShadow = true;
+//         }
+//         pickableObjects.push(m);
+//       }
+//     });
+//     scene.add(gltf.scene);
+//   },
+//   (xhr) => {
+//     console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+//   },
+//   (error) => {
+//     console.log(error);
+//   }
+// );
+
+// window.addEventListener('resize', onWindowResize, false);
+// function onWindowResize() {
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+//   labelRenderer.setSize(window.innerWidth, window.innerHeight);
+//   render();
+// }
+
+// let ctrlDown = false;
+// let lineId = 0;
+// let line: THREE.Line;
+// let drawingLine = false;
+// const measurementLabels: { [key: number]: CSS2DObject } = {};
+
+// window.addEventListener('keydown', function (event) {
+//   if (event.key === 'Control') {
+//     ctrlDown = true;
+//     controls.enabled = false;
+//     renderer.domElement.style.cursor = 'crosshair';
+//   }
+// });
+
+// window.addEventListener('keyup', function (event) {
+//   if (event.key === 'Control') {
+//     ctrlDown = false;
+//     controls.enabled = true;
+//     renderer.domElement.style.cursor = 'pointer';
+//     if (drawingLine) {
+//       //delete the last line because it wasn't committed
+//       scene.remove(line);
+//       scene.remove(measurementLabels[lineId]);
+//       drawingLine = false;
+//     }
+//   }
+// });
+
+// const raycaster = new THREE.Raycaster();
+// let intersects: THREE.Intersection[];
+// const mouse = new THREE.Vector2();
+
+// renderer.domElement.addEventListener('pointerdown', onClick, false);
+// function onClick() {
+//   if (ctrlDown) {
+//     raycaster.setFromCamera(mouse, camera);
+//     intersects = raycaster.intersectObjects(pickableObjects, false);
+//     if (intersects.length > 0) {
+//       if (!drawingLine) {
+//         //start the line
+//         const points = [];
+//         points.push(intersects[0].point);
+//         points.push(intersects[0].point.clone());
+//         const geometry = new THREE.BufferGeometry().setFromPoints(points);
+//         line = new THREE.LineSegments(
+//           geometry,
+//           new THREE.LineBasicMaterial({
+//             color: 0xffffff,
+//             transparent: true,
+//             opacity: 0.75,
+//             // depthTest: false,
+//             // depthWrite: false
+//           })
+//         );
+//         line.frustumCulled = false;
+//         scene.add(line);
+
+//         const measurementDiv = document.createElement('div') as HTMLDivElement;
+//         measurementDiv.className = 'measurementLabel';
+//         measurementDiv.innerText = '0.0m';
+//         const measurementLabel = new CSS2DObject(measurementDiv);
+//         measurementLabel.position.copy(intersects[0].point);
+//         measurementLabels[lineId] = measurementLabel;
+//         scene.add(measurementLabels[lineId]);
+//         drawingLine = true;
+//       } else {
+//         //finish the line
+//         const positions = (
+//           line.geometry.attributes.position as THREE.BufferAttribute
+//         ).array as Array<number>;
+//         positions[3] = intersects[0].point.x;
+//         positions[4] = intersects[0].point.y;
+//         positions[5] = intersects[0].point.z;
+//         line.geometry.attributes.position.needsUpdate = true;
+//         lineId++;
+//         drawingLine = false;
+//       }
+//     }
+//   }
+// }
+
+// document.addEventListener('mousemove', onDocumentMouseMove, false);
+// function onDocumentMouseMove(event: MouseEvent) {
+//   event.preventDefault();
+
+//   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+//   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+//   if (drawingLine) {
+//     raycaster.setFromCamera(mouse, camera);
+//     intersects = raycaster.intersectObjects(pickableObjects, false);
+//     if (intersects.length > 0) {
+//       const positions = (
+//         line.geometry.attributes.position as THREE.BufferAttribute
+//       ).array as Array<number>;
+//       const v0 = new THREE.Vector3(positions[0], positions[1], positions[2]);
+//       const v1 = new THREE.Vector3(
+//         intersects[0].point.x,
+//         intersects[0].point.y,
+//         intersects[0].point.z
+//       );
+//       positions[3] = intersects[0].point.x;
+//       positions[4] = intersects[0].point.y;
+//       positions[5] = intersects[0].point.z;
+//       line.geometry.attributes.position.needsUpdate = true;
+//       const distance = v0.distanceTo(v1);
+//       measurementLabels[lineId].element.innerText = distance.toFixed(2) + 'm';
+//       measurementLabels[lineId].position.lerpVectors(v0, v1, 0.5);
+//     }
+//   }
+// }
+
+// const stats = new Stats();
+// document.body.appendChild(stats.dom);
+
+// function animate() {
+//   requestAnimationFrame(animate);
+
+//   controls.update();
+
+//   render();
+
+//   stats.update();
+// }
+
+// function render() {
+//   labelRenderer.render(scene, camera);
+//   renderer.render(scene, camera);
+// }
+
+// animate();
+
+// ---------------------- //
+// Using tween.js Example //
+// ---------------------- //
+
+// // #Might Use
+// import * as THREE from 'three';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+// import Stats from 'three/examples/jsm/libs/stats.module';
+// import TWEEN from '@tweenjs/tween.js';
+
+// const scene = new THREE.Scene();
+// scene.add(new THREE.AxesHelper(5));
+
+// const camera = new THREE.PerspectiveCamera(
+//   75,
+//   window.innerWidth / window.innerHeight,
+//   0.1,
+//   1000
+// );
+// camera.position.z = 2;
+
+// const renderer = new THREE.WebGLRenderer();
+// //renderer.physicallyCorrectLights = true //deprecated
+// renderer.useLegacyLights = false; //use this instead of setting physicallyCorrectLights=true property
+// renderer.shadowMap.enabled = true;
+// renderer.outputEncoding = THREE.sRGBEncoding;
+// renderer.setSize(window.innerWidth, window.innerHeight);
+// document.body.appendChild(renderer.domElement);
+
+// const controls = new OrbitControls(camera, renderer.domElement);
+// controls.enableDamping = true;
+
+// const sceneMeshes: THREE.Mesh[] = [];
+// let monkey: THREE.Mesh;
+
+// const loader = new GLTFLoader();
+// loader.load(
+//   'models/monkey_textured.glb',
+//   function (gltf) {
+//     gltf.scene.traverse(function (child) {
+//       if ((child as THREE.Mesh).isMesh) {
+//         let m = child as THREE.Mesh;
+//         m.receiveShadow = true;
+//         m.castShadow = true;
+//         if (child.name === 'Plane') {
+//           sceneMeshes.push(m);
+//         } else if (child.name === 'Suzanne') {
+//           monkey = m;
+//         }
+//       }
+//       if ((child as THREE.Light).isLight) {
+//         const l = child as THREE.Light;
+//         l.castShadow = true;
+//         l.shadow.bias = -0.003;
+//         l.shadow.mapSize.width = 2048;
+//         l.shadow.mapSize.height = 2048;
+//       }
+//     });
+//     scene.add(gltf.scene);
+//   },
+//   (xhr) => {
+//     console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+//   },
+//   (error) => {
+//     console.log(error);
+//   }
+// );
+
+// window.addEventListener('resize', onWindowResize, false);
+// function onWindowResize() {
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+//   render();
+// }
+
+// const raycaster = new THREE.Raycaster();
+// const mouse = new THREE.Vector2();
+
+// function onDoubleClick(event: MouseEvent) {
+//   mouse.set(
+//     (event.clientX / renderer.domElement.clientWidth) * 2 - 1,
+//     -(event.clientY / renderer.domElement.clientHeight) * 2 + 1
+//   );
+//   raycaster.setFromCamera(mouse, camera);
+
+//   const intersects = raycaster.intersectObjects(sceneMeshes, false);
+
+//   if (intersects.length > 0) {
+//     const p = intersects[0].point;
+
+//     controls.target.set(p.x, p.y, p.z);
+
+//     // new TWEEN.Tween(controls.target)
+//     //     .to({
+//     //         x: p.x,
+//     //         y: p.y,
+//     //         z: p.z
+//     //     }, 500)
+//     //     //.delay (1000)
+//     //     .easing(TWEEN.Easing.Cubic.Out)
+//     //     //.onUpdate(() => render())
+//     //     .start()
+
+//     new TWEEN.Tween(monkey.position)
+//       .to(
+//         {
+//           x: p.x,
+//           // y: p.y + 1,
+//           z: p.z,
+//         },
+//         500
+//       )
+//       .start();
+
+//     // This can give added bounce
+//     // new TWEEN.Tween(monkey.position)
+//     //   .to(
+//     //     {
+//     //       // x: p.x,
+//     //       y: p.y + 1,
+//     //       // z: p.z,
+//     //     },
+//     //     250
+//     //   )
+//     //   //.delay (1000)
+//     //   .easing(TWEEN.Easing.Linear.None)
+//     //   //.onUpdate(() => render())
+//     //   .start()
+//     //   .onComplete(() => {
+//     //     new TWEEN.Tween(monkey.position)
+//     //       .to(
+//     //         {
+//     //           // x: p.x,
+//     //           y: p.y + 1,
+//     //           // z: p.z,
+//     //         },
+//     //         250
+//     //       )
+//     //       //.delay (250)
+//     //       .easing(TWEEN.Easing.Linear.None)
+//     //       //.onUpdate(() => render())
+//     //       .start();
+//     //   });
+//   }
+// }
+// renderer.domElement.addEventListener('dblclick', onDoubleClick, false);
+
+// const stats = new Stats();
+// document.body.appendChild(stats.dom);
+
+// function animate() {
+//   requestAnimationFrame(animate);
+
+//   controls.update();
+
+//   TWEEN.update();
+
+//   render();
+
+//   stats.update();
+// }
+
+// function render() {
+//   renderer.render(scene, camera);
+// }
+
+// animate();
+
+// ---------------------- //
+// tween w/Slider Example //
+// ---------------------- //
+
+// // #Might Use This could actually work.
+// import * as THREE from 'three';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+// import Stats from 'three/examples/jsm/libs/stats.module';
+// import TWEEN from '@tweenjs/tween.js';
+
+// const scene = new THREE.Scene();
+// scene.add(new THREE.AxesHelper(5));
+
+// const camera = new THREE.PerspectiveCamera(
+//   75,
+//   window.innerWidth / window.innerHeight,
+//   0.1,
+//   1000
+// );
+// camera.position.z = 4;
+
+// const renderer = new THREE.WebGLRenderer();
+// renderer.useLegacyLights = false;
+// renderer.shadowMap.enabled = true;
+// renderer.outputEncoding = THREE.sRGBEncoding;
+// renderer.setSize(window.innerWidth, window.innerHeight);
+// document.body.appendChild(renderer.domElement);
+
+// const controls = new OrbitControls(camera, renderer.domElement);
+// controls.enableDamping = true;
+
+// const sceneMeshes: THREE.Mesh[] = [];
+// let monkey: THREE.Mesh;
+
+// const loader = new GLTFLoader();
+// loader.load(
+//   'models/monkey_textured.glb',
+//   function (gltf) {
+//     gltf.scene.traverse(function (child) {
+//       if ((child as THREE.Mesh).isMesh) {
+//         const m = child as THREE.Mesh;
+//         m.receiveShadow = true;
+//         m.castShadow = true;
+//         if (child.name === 'Plane') {
+//           sceneMeshes.push(m);
+//         } else if (child.name === 'Suzanne') {
+//           monkey = m;
+//         }
+//       }
+//       if ((child as THREE.Light).isLight) {
+//         const l = child as THREE.Light;
+//         l.castShadow = true;
+//         l.shadow.bias = -0.003;
+//         l.shadow.mapSize.width = 2048;
+//         l.shadow.mapSize.height = 2048;
+//       }
+//     });
+//     scene.add(gltf.scene);
+//   },
+//   (xhr) => {
+//     console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+//   },
+//   (error) => {
+//     console.log(error);
+//   }
+// );
+
+// window.addEventListener('resize', onWindowResize, false);
+// function onWindowResize() {
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+//   render();
+// }
+
+// const slider = document.createElement('input');
+// slider.type = 'range';
+// slider.min = '1';
+// slider.max = '10';
+// slider.step = '1';
+// slider.value = '1';
+// slider.style.position = 'absolute';
+// slider.style.top = '100px';
+// slider.style.left = '10px';
+// slider.style.zIndex = '1';
+// document.body.appendChild(slider);
+
+// slider.addEventListener('input', onSliderChange);
+
+// function onSliderChange(event) {
+//   const value = parseFloat(event.target.value);
+//   updateMonkeyPosition(value);
+// }
+
+// const playButton = document.createElement('button');
+// playButton.innerText = 'Play';
+// playButton.style.position = 'absolute';
+// playButton.style.top = '130px';
+// playButton.style.left = '10px';
+// playButton.style.zIndex = '1';
+// document.body.appendChild(playButton);
+
+// let isPlaying = false;
+// let currentFrame = 1;
+// let intervalId;
+
+// playButton.addEventListener('click', onPlayButtonClick);
+
+// function onPlayButtonClick() {
+//   if (isPlaying) {
+//     // Pause the animation
+//     clearInterval(intervalId);
+//     playButton.innerText = 'Play';
+//     isPlaying = false;
+//   } else {
+//     // Start the animation
+//     intervalId = setInterval(() => {
+//       currentFrame++;
+//       if (currentFrame > 10) {
+//         currentFrame = 1;
+//       }
+//       slider.value = currentFrame.toString(); // Update the slider value
+//       updateMonkeyPosition(currentFrame);
+//       // Speed of the animation
+//     }, 100);
+//     playButton.innerText = 'Pause';
+//     isPlaying = true;
+//   }
+// }
+
+// function updateMonkeyPosition(frame) {
+//   const dataPoint = {
+//     x: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 1, 0.4, 0.5, 0.2],
+//     y: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 1, 0.4, 0.5, 0.2],
+//     z: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 1, 0.4, 0.5, 0.2],
+//   };
+
+//   const index = frame - 1;
+
+//   const p = new THREE.Vector3(
+//     dataPoint.x[index],
+//     dataPoint.y[index],
+//     dataPoint.z[index]
+//   );
+//   console.log(frame, p);
+
+//   new TWEEN.Tween(monkey.position)
+//     .to(
+//       {
+//         x: p.x,
+//         y: p.y,
+//         z: p.z,
+//       },
+//       100
+//     )
+//     .start();
+// }
+
+// const stats = new Stats();
+// document.body.appendChild(stats.dom);
+
+// function animate() {
+//   requestAnimationFrame(animate);
+
+//   controls.update();
+
+//   TWEEN.update();
+
+//   render();
+
+//   stats.update();
+// }
+
+// function render() {
+//   renderer.render(scene, camera);
+// }
+
+// animate();
+
+// ------------------------------------------ //
+// Using tween.js with AnimationMixer Example //
+// ------------------------------------------ //
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import Stats from 'three/examples/jsm/libs/stats.module';
-import {
-  CSS2DRenderer,
-  CSS2DObject,
-} from 'three/examples/jsm/renderers/CSS2DRenderer';
+import { GUI } from 'dat.gui';
+import TWEEN from '@tweenjs/tween.js';
 
 const scene = new THREE.Scene();
+scene.add(new THREE.AxesHelper(5));
 
-const light = new THREE.SpotLight();
-light.position.set(12.5, 12.5, 12.5);
-light.castShadow = true;
-light.shadow.mapSize.width = 1024;
-light.shadow.mapSize.height = 1024;
-scene.add(light);
+const light1 = new THREE.SpotLight(); //new THREE.SpotLight();
+light1.position.set(2.5, 5, 2.5);
+light1.angle = Math.PI / 8;
+light1.penumbra = 0.5;
+light1.castShadow = true;
+light1.shadow.mapSize.width = 1024;
+light1.shadow.mapSize.height = 1024;
+light1.shadow.camera.near = 0.5;
+light1.shadow.camera.far = 20;
+scene.add(light1);
+
+const light2 = new THREE.SpotLight(); //new THREE.SpotLight();
+light2.position.set(-2.5, 5, 2.5);
+light2.angle = Math.PI / 8;
+light2.penumbra = 0.5;
+light2.castShadow = true;
+light2.shadow.mapSize.width = 1024;
+light2.shadow.mapSize.height = 1024;
+light2.shadow.camera.near = 0.5;
+light2.shadow.camera.far = 20;
+scene.add(light2);
 
 const camera = new THREE.PerspectiveCamera(
   75,
@@ -6789,44 +7368,116 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   1000
 );
-camera.position.set(15, 15, 15);
+camera.position.set(0.8, 1.4, 1.0);
 
 const renderer = new THREE.WebGLRenderer();
-renderer.shadowMap.enabled = true;
-renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.shadowMap.enabled = true;
 document.body.appendChild(renderer.domElement);
-
-const labelRenderer = new CSS2DRenderer();
-labelRenderer.setSize(window.innerWidth, window.innerHeight);
-labelRenderer.domElement.style.position = 'absolute';
-labelRenderer.domElement.style.top = '0px';
-labelRenderer.domElement.style.pointerEvents = 'none';
-document.body.appendChild(labelRenderer.domElement);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
+controls.target.set(0, 1, 0);
 
-const pickableObjects: THREE.Mesh[] = [];
+const sceneMeshes: THREE.Mesh[] = [];
 
-const loader = new GLTFLoader();
-loader.load(
-  'models/simplescene.glb',
-  function (gltf) {
+const planeGeometry = new THREE.PlaneGeometry(25, 25);
+const texture = new THREE.TextureLoader().load('img/grid.png');
+const plane = new THREE.Mesh(
+  planeGeometry,
+  new THREE.MeshPhongMaterial({ map: texture })
+);
+plane.rotateX(-Math.PI / 2);
+plane.receiveShadow = true;
+scene.add(plane);
+sceneMeshes.push(plane);
+
+let mixer: THREE.AnimationMixer;
+let modelReady = false;
+let modelMesh: THREE.Object3D;
+const animationActions: THREE.AnimationAction[] = [];
+let activeAction: THREE.AnimationAction;
+let lastAction: THREE.AnimationAction;
+const gltfLoader = new GLTFLoader();
+
+gltfLoader.load(
+  'models/ninja.glb',
+  (gltf) => {
     gltf.scene.traverse(function (child) {
       if ((child as THREE.Mesh).isMesh) {
-        const m = child as THREE.Mesh;
-        switch (m.name) {
-          case 'Plane':
-            m.receiveShadow = true;
-            break;
-          default:
-            m.castShadow = true;
-        }
-        pickableObjects.push(m);
+        let m = child as THREE.Mesh;
+        m.castShadow = true;
+        m.frustumCulled = false;
       }
     });
+
+    mixer = new THREE.AnimationMixer(gltf.scene);
+
+    const animationAction = mixer.clipAction((gltf as any).animations[0]);
+    animationActions.push(animationAction);
+    animationsFolder.add(animations, 'default');
+    activeAction = animationActions[0];
+
     scene.add(gltf.scene);
+    modelMesh = gltf.scene;
+
+    //add an animation from another file
+    gltfLoader.load(
+      'models/ninja@baseballSwing.glb',
+      (gltf) => {
+        console.log('loaded samba');
+        const animationAction = mixer.clipAction((gltf as any).animations[0]);
+        animationActions.push(animationAction);
+        animationsFolder.add(animations, 'baseballSwing');
+
+        //add an animation from another file
+        gltfLoader.load(
+          'models/ninja@baseballPitch.glb',
+          (gltf) => {
+            console.log('loaded baseballPitch');
+            const animationAction = mixer.clipAction(
+              (gltf as any).animations[0]
+            );
+            animationActions.push(animationAction);
+            animationsFolder.add(animations, 'baseballPitch');
+
+            //add an animation from another file
+            gltfLoader.load(
+              'models/ninja@mmaKick.glb',
+              (gltf) => {
+                console.log('loaded mmaKick');
+                (gltf as any).animations[0].tracks.shift(); //delete the specific track that moves the object forward while running
+                const animationAction = mixer.clipAction(
+                  (gltf as any).animations[0]
+                );
+                animationActions.push(animationAction);
+                animationsFolder.add(animations, 'mmaKick');
+
+                modelReady = true;
+              },
+              (xhr) => {
+                console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+              },
+              (error) => {
+                console.log(error);
+              }
+            );
+          },
+          (xhr) => {
+            console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      },
+      (xhr) => {
+        console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   },
   (xhr) => {
     console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
@@ -6841,129 +7492,116 @@ function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
-  labelRenderer.setSize(window.innerWidth, window.innerHeight);
   render();
 }
 
-let ctrlDown = false;
-let lineId = 0;
-let line: THREE.Line;
-let drawingLine = false;
-const measurementLabels: { [key: number]: CSS2DObject } = {};
-
-window.addEventListener('keydown', function (event) {
-  if (event.key === 'Control') {
-    ctrlDown = true;
-    controls.enabled = false;
-    renderer.domElement.style.cursor = 'crosshair';
-  }
-});
-
-window.addEventListener('keyup', function (event) {
-  if (event.key === 'Control') {
-    ctrlDown = false;
-    controls.enabled = true;
-    renderer.domElement.style.cursor = 'pointer';
-    if (drawingLine) {
-      //delete the last line because it wasn't committed
-      scene.remove(line);
-      scene.remove(measurementLabels[lineId]);
-      drawingLine = false;
-    }
-  }
-});
-
 const raycaster = new THREE.Raycaster();
-let intersects: THREE.Intersection[];
-const mouse = new THREE.Vector2();
+const targetQuaternion = new THREE.Quaternion();
 
-renderer.domElement.addEventListener('pointerdown', onClick, false);
-function onClick() {
-  if (ctrlDown) {
-    raycaster.setFromCamera(mouse, camera);
-    intersects = raycaster.intersectObjects(pickableObjects, false);
-    if (intersects.length > 0) {
-      if (!drawingLine) {
-        //start the line
-        const points = [];
-        points.push(intersects[0].point);
-        points.push(intersects[0].point.clone());
-        const geometry = new THREE.BufferGeometry().setFromPoints(points);
-        line = new THREE.LineSegments(
-          geometry,
-          new THREE.LineBasicMaterial({
-            color: 0xffffff,
-            transparent: true,
-            opacity: 0.75,
-            // depthTest: false,
-            // depthWrite: false
-          })
+renderer.domElement.addEventListener('dblclick', onDoubleClick, false);
+function onDoubleClick(event: MouseEvent) {
+  const mouse = {
+    x: (event.clientX / renderer.domElement.clientWidth) * 2 - 1,
+    y: -(event.clientY / renderer.domElement.clientHeight) * 2 + 1,
+  };
+  // @ts-ignore
+  raycaster.setFromCamera(mouse, camera);
+
+  const intersects = raycaster.intersectObjects(sceneMeshes, false);
+
+  if (intersects.length > 0) {
+    const p = intersects[0].point;
+
+    const distance = modelMesh.position.distanceTo(p);
+
+    // modelMesh.lookAt(p);
+
+    const rotationMatrix = new THREE.Matrix4();
+    rotationMatrix.lookAt(p, modelMesh.position, modelMesh.up);
+    targetQuaternion.setFromRotationMatrix(rotationMatrix);
+
+    setAction(animationActions[2]);
+
+    TWEEN.removeAll();
+    new TWEEN.Tween(modelMesh.position)
+      .to(
+        {
+          x: p.x,
+          y: p.y,
+          z: p.z,
+        },
+        (1000 / 2) * distance
+      ) //walks 2 meters a second * the distance
+      .onUpdate(() => {
+        controls.target.set(
+          modelMesh.position.x,
+          modelMesh.position.y + 1,
+          modelMesh.position.z
         );
-        line.frustumCulled = false;
-        scene.add(line);
-
-        const measurementDiv = document.createElement('div') as HTMLDivElement;
-        measurementDiv.className = 'measurementLabel';
-        measurementDiv.innerText = '0.0m';
-        const measurementLabel = new CSS2DObject(measurementDiv);
-        measurementLabel.position.copy(intersects[0].point);
-        measurementLabels[lineId] = measurementLabel;
-        scene.add(measurementLabels[lineId]);
-        drawingLine = true;
-      } else {
-        //finish the line
-        const positions = (
-          line.geometry.attributes.position as THREE.BufferAttribute
-        ).array as Array<number>;
-        positions[3] = intersects[0].point.x;
-        positions[4] = intersects[0].point.y;
-        positions[5] = intersects[0].point.z;
-        line.geometry.attributes.position.needsUpdate = true;
-        lineId++;
-        drawingLine = false;
-      }
-    }
-  }
-}
-
-document.addEventListener('mousemove', onDocumentMouseMove, false);
-function onDocumentMouseMove(event: MouseEvent) {
-  event.preventDefault();
-
-  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-  if (drawingLine) {
-    raycaster.setFromCamera(mouse, camera);
-    intersects = raycaster.intersectObjects(pickableObjects, false);
-    if (intersects.length > 0) {
-      const positions = (
-        line.geometry.attributes.position as THREE.BufferAttribute
-      ).array as Array<number>;
-      const v0 = new THREE.Vector3(positions[0], positions[1], positions[2]);
-      const v1 = new THREE.Vector3(
-        intersects[0].point.x,
-        intersects[0].point.y,
-        intersects[0].point.z
-      );
-      positions[3] = intersects[0].point.x;
-      positions[4] = intersects[0].point.y;
-      positions[5] = intersects[0].point.z;
-      line.geometry.attributes.position.needsUpdate = true;
-      const distance = v0.distanceTo(v1);
-      measurementLabels[lineId].element.innerText = distance.toFixed(2) + 'm';
-      measurementLabels[lineId].position.lerpVectors(v0, v1, 0.5);
-    }
+        light1.target = modelMesh;
+        light2.target = modelMesh;
+      })
+      .start()
+      .onComplete(() => {
+        setAction(animationActions[1]);
+        activeAction.clampWhenFinished = true;
+        activeAction.loop = THREE.LoopOnce;
+      });
   }
 }
 
 const stats = new Stats();
 document.body.appendChild(stats.dom);
 
+const animations = {
+  default: function () {
+    setAction(animationActions[0]);
+  },
+  baseballSwing: function () {
+    setAction(animationActions[1]);
+  },
+  baseballPitch: function () {
+    setAction(animationActions[2]);
+  },
+  mmaKick: function () {
+    setAction(animationActions[3]);
+  },
+};
+
+const setAction = (toAction: THREE.AnimationAction) => {
+  if (toAction != activeAction) {
+    lastAction = activeAction;
+    activeAction = toAction;
+    //lastAction.stop()
+    lastAction.fadeOut(0.2);
+    activeAction.reset();
+    activeAction.fadeIn(0.2);
+    activeAction.play();
+  }
+};
+
+const gui = new GUI();
+const animationsFolder = gui.addFolder('Animations');
+animationsFolder.open();
+
+const clock = new THREE.Clock();
+let delta = 0;
+
 function animate() {
   requestAnimationFrame(animate);
 
   controls.update();
+
+  if (modelReady) {
+    delta = clock.getDelta();
+    mixer.update(delta);
+
+    if (!modelMesh.quaternion.equals(targetQuaternion)) {
+      modelMesh.quaternion.rotateTowards(targetQuaternion, delta * 1000);
+    }
+  }
+
+  TWEEN.update();
 
   render();
 
@@ -6971,7 +7609,6 @@ function animate() {
 }
 
 function render() {
-  labelRenderer.render(scene, camera);
   renderer.render(scene, camera);
 }
 
