@@ -6385,6 +6385,7 @@
 
 // // Create a material for the skeleton body
 // const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+// material.wireframe = true;
 
 // // Define the skeleton body parts
 // const head = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), material);
@@ -6446,10 +6447,76 @@
 // scene.add(rightUpperLeg);
 // scene.add(rightLowerLeg);
 
+// const bodyBone = new THREE.Bone();
+
+// const headBone = new THREE.Bone();
+
+// const leftShoulderBone = new THREE.Bone();
+// const leftHandBone = new THREE.Bone();
+
+// const rightShoulderBone = new THREE.Bone();
+// const rightHandBone = new THREE.Bone();
+
+// const leftHipBone = new THREE.Bone();
+// const leftFootBone = new THREE.Bone();
+
+// const rightHipBone = new THREE.Bone();
+// const rightFootBone = new THREE.Bone();
+
+// bodyBone.position.set(0, 1, 0);
+
+// headBone.position.set(0, 2.5, 0);
+
+// leftShoulderBone.position.set(6, 6, 0);
+// leftHandBone.position.set(0, -6, 0);
+
+// rightShoulderBone.position.set(-6, 6, 0);
+// rightHandBone.position.set(0, -6, 0);
+
+// leftHipBone.position.set(2, -6, 0);
+// leftFootBone.position.set(0, -6, 0);
+
+// rightHipBone.position.set(-2, -6, 0);
+// rightFootBone.position.set(0, -6, 0);
+
+// bodyBone.add(headBone);
+
+// bodyBone.add(leftShoulderBone);
+// leftShoulderBone.add(leftHandBone);
+
+// bodyBone.add(rightShoulderBone);
+// rightShoulderBone.add(rightHandBone);
+
+// bodyBone.add(leftHipBone);
+// leftHipBone.add(leftFootBone);
+
+// bodyBone.add(rightHipBone);
+// rightHipBone.add(rightFootBone);
+
+// const bones = [];
+// bones.push(bodyBone);
+// bones.push(headBone);
+// bones.push(leftShoulderBone);
+// bones.push(leftHandBone);
+// bones.push(rightShoulderBone);
+// bones.push(rightHandBone);
+// bones.push(leftHipBone);
+// bones.push(leftFootBone);
+// bones.push(rightHipBone);
+// bones.push(rightFootBone);
+
+// // Interesting, we don't actually need a skeleton ???
+// // skeleton = new THREE.Skeleton(bones);
+
+// const helper = new THREE.SkeletonHelper(bodyBone);
+
+// scene.add(helper);
+// scene.add(bodyBone);
+
 // // Define animation parameters
 // const animationDuration = 1; // Animation duration in seconds
 // const legRotationAngle = Math.PI / 4; // Angle to rotate the legs
-// let animationStartTime = null;
+// let animationStartTime: any = null;
 
 // // Define your own arrays of data for each animation frame
 // const headRotations = [0, 2, 0, 2]; // Example array for head rotations
@@ -8287,198 +8354,1120 @@
 // Trimeshes, ConvexPolyhedrons and Compound Shapes Example //
 // -------------------------------------------------------- //
 
-import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import Stats from 'three/examples/jsm/libs/stats.module';
-import { GUI } from 'dat.gui';
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
-import * as CANNON from 'cannon-es';
-import CannonUtils from './utils/cannonUtils';
-import CannonDebugRenderer from './utils/cannonDebugRenderer';
-import { ConvexGeometry } from 'three/examples/jsm/geometries/ConvexGeometry';
+// import * as THREE from 'three';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import Stats from 'three/examples/jsm/libs/stats.module';
+// import { GUI } from 'dat.gui';
+// import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
+// import * as CANNON from 'cannon-es';
+// import CannonUtils from './utils/cannonUtils';
+// import CannonDebugRenderer from './utils/cannonDebugRenderer';
+// import { ConvexGeometry } from 'three/examples/jsm/geometries/ConvexGeometry';
 
-const scene = new THREE.Scene();
-scene.add(new THREE.AxesHelper(5));
+// const scene = new THREE.Scene();
+// scene.add(new THREE.AxesHelper(5));
 
-var light1 = new THREE.SpotLight();
-light1.position.set(2.5, 5, 5);
-light1.angle = Math.PI / 4;
-light1.penumbra = 0.5;
-light1.castShadow = true;
-light1.shadow.mapSize.width = 1024;
-light1.shadow.mapSize.height = 1024;
-light1.shadow.camera.near = 0.5;
-light1.shadow.camera.far = 20;
-scene.add(light1);
+// var light1 = new THREE.SpotLight();
+// light1.position.set(2.5, 5, 5);
+// light1.angle = Math.PI / 4;
+// light1.penumbra = 0.5;
+// light1.castShadow = true;
+// light1.shadow.mapSize.width = 1024;
+// light1.shadow.mapSize.height = 1024;
+// light1.shadow.camera.near = 0.5;
+// light1.shadow.camera.far = 20;
+// scene.add(light1);
 
-var light2 = new THREE.SpotLight();
-light2.position.set(-2.5, 5, 5);
-light2.angle = Math.PI / 4;
-light2.penumbra = 0.5;
-light2.castShadow = true;
-light2.shadow.mapSize.width = 1024;
-light2.shadow.mapSize.height = 1024;
-light2.shadow.camera.near = 0.5;
-light2.shadow.camera.far = 20;
-scene.add(light2);
+// var light2 = new THREE.SpotLight();
+// light2.position.set(-2.5, 5, 5);
+// light2.angle = Math.PI / 4;
+// light2.penumbra = 0.5;
+// light2.castShadow = true;
+// light2.shadow.mapSize.width = 1024;
+// light2.shadow.mapSize.height = 1024;
+// light2.shadow.camera.near = 0.5;
+// light2.shadow.camera.far = 20;
+// scene.add(light2);
 
-const camera = new THREE.PerspectiveCamera(
-  75,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
-);
-camera.position.set(0, 4, 8);
+// const camera = new THREE.PerspectiveCamera(
+//   75,
+//   window.innerWidth / window.innerHeight,
+//   0.1,
+//   1000
+// );
+// camera.position.set(0, 4, 8);
 
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-document.body.appendChild(renderer.domElement);
+// const renderer = new THREE.WebGLRenderer();
+// renderer.setSize(window.innerWidth, window.innerHeight);
+// renderer.shadowMap.enabled = true;
+// renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+// document.body.appendChild(renderer.domElement);
 
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.screenSpacePanning = true;
-controls.target.y = 2;
+// const controls = new OrbitControls(camera, renderer.domElement);
+// controls.screenSpacePanning = true;
+// controls.target.y = 2;
 
-const world = new CANNON.World();
-world.gravity.set(0, -9.82, 0);
+// const world = new CANNON.World();
+// world.gravity.set(0, -9.82, 0);
 
-const normalMaterial = new THREE.MeshNormalMaterial();
-const phongMaterial = new THREE.MeshPhongMaterial();
+// const normalMaterial = new THREE.MeshNormalMaterial();
+// const phongMaterial = new THREE.MeshPhongMaterial();
 
-let monkeyMeshes: THREE.Object3D[] = [];
-let monkeyBodies: CANNON.Body[] = [];
-let monkeyLoaded = false;
+// let monkeyMeshes: THREE.Object3D[] = [];
+// let monkeyBodies: CANNON.Body[] = [];
+// let monkeyLoaded = false;
 
-const objLoader = new OBJLoader();
-objLoader.load(
-  'models/monkey.obj',
-  (object) => {
-    const monkeyMesh = object.children[0] as THREE.Mesh;
-    monkeyMesh.material = normalMaterial;
+// const objLoader = new OBJLoader();
+// objLoader.load(
+//   'models/monkey.obj',
+//   (object) => {
+//     const monkeyMesh = object.children[0] as THREE.Mesh;
+//     monkeyMesh.material = normalMaterial;
 
-    // const positions = monkeyMesh.geometry.attributes.position.array
-    // const points: THREE.Vector3[] = []
-    // for (let i = 0; i < positions.length; i += 3) {
-    //     points.push(new THREE.Vector3(positions[i], positions[i + 1], positions[i + 2]))
-    // }
-    // const convexHull = new ConvexGeometry(points)
+//     // const positions = monkeyMesh.geometry.attributes.position.array
+//     // const points: THREE.Vector3[] = []
+//     // for (let i = 0; i < positions.length; i += 3) {
+//     //     points.push(new THREE.Vector3(positions[i], positions[i + 1], positions[i + 2]))
+//     // }
+//     // const convexHull = new ConvexGeometry(points)
 
-    for (let i = 0; i < 200; i++) {
-      const monkeyMeshClone = monkeyMesh.clone();
-      monkeyMeshClone.position.x = Math.floor(Math.random() * 10) - 5;
-      monkeyMeshClone.position.z = Math.floor(Math.random() * 10) - 5;
-      monkeyMeshClone.position.y = 5 + i;
-      scene.add(monkeyMeshClone);
-      monkeyMeshes.push(monkeyMeshClone);
+//     for (let i = 0; i < 200; i++) {
+//       const monkeyMeshClone = monkeyMesh.clone();
+//       monkeyMeshClone.position.x = Math.floor(Math.random() * 10) - 5;
+//       monkeyMeshClone.position.z = Math.floor(Math.random() * 10) - 5;
+//       monkeyMeshClone.position.y = 5 + i;
+//       scene.add(monkeyMeshClone);
+//       monkeyMeshes.push(monkeyMeshClone);
 
-      const monkeyShape = CannonUtils.CreateTrimesh(
-        (monkeyMesh as THREE.Mesh).geometry
-      );
-      // const monkeyShape = CannonUtils.CreateConvexPolyhedron(new THREE.IcosahedronGeometry(1))
-      // const monkeyShape = CannonUtils.CreateConvexPolyhedron((monkeyMesh as THREE.Mesh).geometry)
-      // const monkeyShape = CannonUtils.CreateConvexPolyhedron(convexHull)
+//       const monkeyShape = CannonUtils.CreateTrimesh(
+//         (monkeyMesh as THREE.Mesh).geometry
+//       );
+//       // const monkeyShape = CannonUtils.CreateConvexPolyhedron(new THREE.IcosahedronGeometry(1))
+//       // const monkeyShape = CannonUtils.CreateConvexPolyhedron((monkeyMesh as THREE.Mesh).geometry)
+//       // const monkeyShape = CannonUtils.CreateConvexPolyhedron(convexHull)
 
-      const monkeyBody = new CANNON.Body({ mass: 1 });
-      // monkeyBody.addShape(monkeyShape);
-      // monkeyBody.addShape(new CANNON.Sphere(1))// head,
-      monkeyBody.addShape(new CANNON.Sphere(0.8), new CANNON.Vec3(0, 0.2, 0)); // head,
-      monkeyBody.addShape(
-        new CANNON.Sphere(0.05),
-        new CANNON.Vec3(0, -0.97, 0.46)
-      ); // chin,
-      monkeyBody.addShape(
-        new CANNON.Sphere(0.05),
-        new CANNON.Vec3(-1.36, 0.29, -0.5)
-      ); //left ear
-      monkeyBody.addShape(
-        new CANNON.Sphere(0.05),
-        new CANNON.Vec3(1.36, 0.29, -0.5)
-      ); //right ear
-      monkeyBody.position.x = monkeyMeshClone.position.x;
-      monkeyBody.position.y = monkeyMeshClone.position.y;
-      monkeyBody.position.z = monkeyMeshClone.position.z;
-      world.addBody(monkeyBody);
-      monkeyBodies.push(monkeyBody);
-    }
+//       const monkeyBody = new CANNON.Body({ mass: 1 });
+//       // monkeyBody.addShape(monkeyShape);
+//       // monkeyBody.addShape(new CANNON.Sphere(1))// head,
+//       monkeyBody.addShape(new CANNON.Sphere(0.8), new CANNON.Vec3(0, 0.2, 0)); // head,
+//       monkeyBody.addShape(
+//         new CANNON.Sphere(0.05),
+//         new CANNON.Vec3(0, -0.97, 0.46)
+//       ); // chin,
+//       monkeyBody.addShape(
+//         new CANNON.Sphere(0.05),
+//         new CANNON.Vec3(-1.36, 0.29, -0.5)
+//       ); //left ear
+//       monkeyBody.addShape(
+//         new CANNON.Sphere(0.05),
+//         new CANNON.Vec3(1.36, 0.29, -0.5)
+//       ); //right ear
+//       monkeyBody.position.x = monkeyMeshClone.position.x;
+//       monkeyBody.position.y = monkeyMeshClone.position.y;
+//       monkeyBody.position.z = monkeyMeshClone.position.z;
+//       world.addBody(monkeyBody);
+//       monkeyBodies.push(monkeyBody);
+//     }
 
-    monkeyLoaded = true;
-  },
-  (xhr) => {
-    console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
-  },
-  (error) => {
-    console.log('An error happened');
-  }
-);
+//     monkeyLoaded = true;
+//   },
+//   (xhr) => {
+//     console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+//   },
+//   (error) => {
+//     console.log('An error happened');
+//   }
+// );
 
-const planeGeometry = new THREE.PlaneGeometry(25, 25);
-const planeMesh = new THREE.Mesh(planeGeometry, phongMaterial);
-planeMesh.rotateX(-Math.PI / 2);
-planeMesh.receiveShadow = true;
-scene.add(planeMesh);
-const planeShape = new CANNON.Plane();
-const planeBody = new CANNON.Body({ mass: 0 });
-planeBody.addShape(planeShape);
-planeBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
-world.addBody(planeBody);
+// const planeGeometry = new THREE.PlaneGeometry(25, 25);
+// const planeMesh = new THREE.Mesh(planeGeometry, phongMaterial);
+// planeMesh.rotateX(-Math.PI / 2);
+// planeMesh.receiveShadow = true;
+// scene.add(planeMesh);
+// const planeShape = new CANNON.Plane();
+// const planeBody = new CANNON.Body({ mass: 0 });
+// planeBody.addShape(planeShape);
+// planeBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
+// world.addBody(planeBody);
 
-window.addEventListener('resize', onWindowResize, false);
-function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
+// window.addEventListener('resize', onWindowResize, false);
+// function onWindowResize() {
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+//   render();
+// }
+
+// const stats = new Stats();
+// document.body.appendChild(stats.dom);
+
+// const gui = new GUI();
+// const physicsFolder = gui.addFolder('Physics');
+// physicsFolder.add(world.gravity, 'x', -10.0, 10.0, 0.1);
+// physicsFolder.add(world.gravity, 'y', -10.0, 10.0, 0.1);
+// physicsFolder.add(world.gravity, 'z', -10.0, 10.0, 0.1);
+// physicsFolder.open();
+
+// const clock = new THREE.Clock();
+// let delta;
+
+// const cannonDebugRenderer = new CannonDebugRenderer(scene, world);
+
+// function animate() {
+//   requestAnimationFrame(animate);
+
+//   controls.update();
+
+//   delta = Math.min(clock.getDelta(), 0.1);
+//   world.step(delta);
+
+//   cannonDebugRenderer.update();
+
+//   // Copy coordinates from Cannon to Three.js
+//   if (monkeyLoaded) {
+//     monkeyMeshes.forEach((m, i) => {
+//       m.position.set(
+//         monkeyBodies[i].position.x,
+//         monkeyBodies[i].position.y,
+//         monkeyBodies[i].position.z
+//       );
+//       m.quaternion.set(
+//         monkeyBodies[i].quaternion.x,
+//         monkeyBodies[i].quaternion.y,
+//         monkeyBodies[i].quaternion.z,
+//         monkeyBodies[i].quaternion.w
+//       );
+//     });
+//   }
+
+//   render();
+
+//   stats.update();
+// }
+
+// function render() {
+//   renderer.render(scene, camera);
+// }
+// animate();
+
+// ---------------------------------------------------------- //
+// Convert three.js Javascript examples to Typescript Example //
+// ---------------------------------------------------------- //
+
+// import * as THREE from 'three';
+
+// import Stats from 'three/examples/jsm/libs/stats.module';
+
+// import { GUI } from 'three/examples/jsm/libs/lil-gui.module.min.js';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import { Water } from 'three/examples/jsm/objects/Water';
+// import { Sky } from 'three/examples/jsm/objects/Sky';
+
+// THREE.ColorManagement.enabled = false; // TODO: Confirm correct color management.
+
+// let container: HTMLDivElement, stats: Stats;
+// let camera: THREE.PerspectiveCamera,
+//   scene: THREE.Scene,
+//   renderer: THREE.WebGLRenderer;
+// let controls: OrbitControls, water: Water, sun: THREE.Vector3, mesh: THREE.Mesh;
+
+// init();
+// animate();
+
+// function init() {
+//   container = document.getElementById('container') as HTMLDivElement;
+
+//   //
+
+//   renderer = new THREE.WebGLRenderer();
+//   renderer.setPixelRatio(window.devicePixelRatio);
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+//   renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
+//   renderer.toneMapping = THREE.ACESFilmicToneMapping;
+//   container.appendChild(renderer.domElement);
+
+//   //
+
+//   scene = new THREE.Scene();
+
+//   camera = new THREE.PerspectiveCamera(
+//     55,
+//     window.innerWidth / window.innerHeight,
+//     1,
+//     20000
+//   );
+//   camera.position.set(30, 30, 100);
+
+//   //
+
+//   sun = new THREE.Vector3();
+
+//   // Water
+
+//   const waterGeometry = new THREE.PlaneGeometry(10000, 10000);
+
+//   water = new Water(waterGeometry, {
+//     textureWidth: 512,
+//     textureHeight: 512,
+//     waterNormals: new THREE.TextureLoader().load(
+//       'textures/waternormals.jpg',
+//       function (texture) {
+//         texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+//       }
+//     ),
+//     sunDirection: new THREE.Vector3(),
+//     sunColor: 0xffffff,
+//     waterColor: 0x001e0f,
+//     distortionScale: 3.7,
+//     fog: scene.fog !== undefined,
+//   });
+
+//   water.rotation.x = -Math.PI / 2;
+
+//   scene.add(water);
+
+//   // Skybox
+
+//   const sky = new Sky();
+//   sky.scale.setScalar(10000);
+//   scene.add(sky);
+
+//   const skyUniforms = sky.material.uniforms;
+
+//   skyUniforms['turbidity'].value = 10;
+//   skyUniforms['rayleigh'].value = 2;
+//   skyUniforms['mieCoefficient'].value = 0.005;
+//   skyUniforms['mieDirectionalG'].value = 0.8;
+
+//   const parameters = {
+//     elevation: 2,
+//     azimuth: 180,
+//   };
+
+//   const pmremGenerator = new THREE.PMREMGenerator(renderer);
+//   let renderTarget: any;
+
+//   function updateSun() {
+//     const phi = THREE.MathUtils.degToRad(90 - parameters.elevation);
+//     const theta = THREE.MathUtils.degToRad(parameters.azimuth);
+
+//     sun.setFromSphericalCoords(1, phi, theta);
+
+//     sky.material.uniforms['sunPosition'].value.copy(sun);
+//     water.material.uniforms['sunDirection'].value.copy(sun).normalize();
+
+//     if (renderTarget !== undefined) renderTarget.dispose();
+
+//     renderTarget = pmremGenerator.fromScene(sky as any);
+
+//     scene.environment = renderTarget.texture;
+//   }
+
+//   updateSun();
+
+//   //
+
+//   const geometry = new THREE.BoxGeometry(30, 30, 30);
+//   const material = new THREE.MeshStandardMaterial({ roughness: 0 });
+
+//   mesh = new THREE.Mesh(geometry, material);
+//   scene.add(mesh);
+
+//   //
+
+//   controls = new OrbitControls(camera, renderer.domElement);
+//   controls.maxPolarAngle = Math.PI * 0.495;
+//   controls.target.set(0, 10, 0);
+//   controls.minDistance = 40.0;
+//   controls.maxDistance = 200.0;
+//   controls.update();
+
+//   //
+
+//   stats = new Stats();
+//   container.appendChild(stats.dom);
+
+//   // GUI
+
+//   const gui = new GUI();
+
+//   const folderSky = gui.addFolder('Sky');
+//   folderSky.add(parameters, 'elevation', 0, 90, 0.1).onChange(updateSun);
+//   folderSky.add(parameters, 'azimuth', -180, 180, 0.1).onChange(updateSun);
+//   folderSky.open();
+
+//   const waterUniforms = water.material.uniforms;
+
+//   const folderWater = gui.addFolder('Water');
+//   folderWater
+//     .add(waterUniforms.distortionScale, 'value', 0, 8, 0.1)
+//     .name('distortionScale');
+//   folderWater.add(waterUniforms.size, 'value', 0.1, 10, 0.1).name('size');
+//   folderWater.open();
+
+//   //
+
+//   window.addEventListener('resize', onWindowResize);
+// }
+
+// function onWindowResize() {
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+// }
+
+// function animate() {
+//   requestAnimationFrame(animate);
+//   render();
+//   stats.update();
+// }
+
+// function render() {
+//   const time = performance.now() * 0.001;
+
+//   mesh.position.y = Math.sin(time) * 20 + 5;
+//   mesh.rotation.x = time * 0.5;
+//   mesh.rotation.z = time * 0.51;
+
+//   water.material.uniforms['time'].value += 1.0 / 60.0;
+
+//   renderer.render(scene, camera);
+// }
+
+// ------------------------------------------------------------------ //
+// Convert Another three.js Javascript examples to Typescript Example //
+// ------------------------------------------------------------------ //
+
+// import * as THREE from 'three';
+
+// import Stats from 'three/examples/jsm/libs/stats.module.js';
+// import { GUI } from 'three/examples/jsm/libs/lil-gui.module.min.js';
+
+// import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+
+// let scene: THREE.Scene,
+//   renderer: THREE.WebGLRenderer,
+//   camera: THREE.PerspectiveCamera,
+//   stats: Stats;
+// let model: any,
+//   skeleton: THREE.SkeletonHelper,
+//   mixer: THREE.AnimationMixer,
+//   clock: THREE.Clock;
+
+// const crossFadeControls: any = [];
+
+// let idleAction: any, walkAction: any, runAction: any;
+// let idleWeight: any, walkWeight: any, runWeight: any;
+// let actions: any, settings: any;
+
+// let singleStepMode = false;
+// let sizeOfNextStep = 0;
+
+// init();
+
+// function init() {
+//   const container = document.getElementById('container') as HTMLDivElement;
+
+//   camera = new THREE.PerspectiveCamera(
+//     45,
+//     window.innerWidth / window.innerHeight,
+//     1,
+//     1000
+//   );
+//   camera.position.set(1, 2, -3);
+//   camera.lookAt(0, 1, 0);
+
+//   clock = new THREE.Clock();
+
+//   scene = new THREE.Scene();
+//   scene.background = new THREE.Color(0xa0a0a0);
+//   scene.fog = new THREE.Fog(0xa0a0a0, 10, 50);
+
+//   const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444);
+//   hemiLight.position.set(0, 20, 0);
+//   scene.add(hemiLight);
+
+//   const dirLight = new THREE.DirectionalLight(0xffffff);
+//   dirLight.position.set(-3, 10, -10);
+//   dirLight.castShadow = true;
+//   dirLight.shadow.camera.top = 2;
+//   dirLight.shadow.camera.bottom = -2;
+//   dirLight.shadow.camera.left = -2;
+//   dirLight.shadow.camera.right = 2;
+//   dirLight.shadow.camera.near = 0.1;
+//   dirLight.shadow.camera.far = 40;
+//   scene.add(dirLight);
+
+//   // scene.add( new THREE.CameraHelper( dirLight.shadow.camera ) );
+
+//   // ground
+
+//   const mesh = new THREE.Mesh(
+//     new THREE.PlaneGeometry(100, 100),
+//     new THREE.MeshPhongMaterial({ color: 0x999999, depthWrite: false })
+//   );
+//   mesh.rotation.x = -Math.PI / 2;
+//   mesh.receiveShadow = true;
+//   scene.add(mesh);
+
+//   const loader = new GLTFLoader();
+//   loader.load('models/Soldier.glb', function (gltf) {
+//     model = gltf.scene;
+//     scene.add(model);
+
+//     model.traverse(function (object: any) {
+//       if (object.isMesh) object.castShadow = true;
+//     });
+
+//     //
+
+//     skeleton = new THREE.SkeletonHelper(model);
+//     skeleton.visible = false;
+//     scene.add(skeleton);
+
+//     //
+
+//     createPanel();
+
+//     //
+
+//     const animations = gltf.animations;
+
+//     mixer = new THREE.AnimationMixer(model);
+
+//     idleAction = mixer.clipAction(animations[0]);
+//     walkAction = mixer.clipAction(animations[3]);
+//     runAction = mixer.clipAction(animations[1]);
+
+//     actions = [idleAction, walkAction, runAction];
+
+//     activateAllActions();
+
+//     animate();
+//   });
+
+//   renderer = new THREE.WebGLRenderer({ antialias: true });
+//   renderer.setPixelRatio(window.devicePixelRatio);
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+//   renderer.shadowMap.enabled = true;
+//   container.appendChild(renderer.domElement);
+
+//   stats = new Stats();
+//   container.appendChild(stats.dom);
+
+//   window.addEventListener('resize', onWindowResize);
+// }
+
+// function createPanel() {
+//   const panel = new GUI({ width: 310 });
+
+//   const folder1 = panel.addFolder('Visibility');
+//   const folder2 = panel.addFolder('Activation/Deactivation');
+//   const folder3 = panel.addFolder('Pausing/Stepping');
+//   const folder4 = panel.addFolder('Crossfading');
+//   const folder5 = panel.addFolder('Blend Weights');
+//   const folder6 = panel.addFolder('General Speed');
+
+//   settings = {
+//     'show model': true,
+//     'show skeleton': false,
+//     'deactivate all': deactivateAllActions,
+//     'activate all': activateAllActions,
+//     'pause/continue': pauseContinue,
+//     'make single step': toSingleStepMode,
+//     'modify step size': 0.05,
+//     'from walk to idle': function () {
+//       prepareCrossFade(walkAction, idleAction, 1.0);
+//     },
+//     'from idle to walk': function () {
+//       prepareCrossFade(idleAction, walkAction, 0.5);
+//     },
+//     'from walk to run': function () {
+//       prepareCrossFade(walkAction, runAction, 2.5);
+//     },
+//     'from run to walk': function () {
+//       prepareCrossFade(runAction, walkAction, 5.0);
+//     },
+//     'use default duration': true,
+//     'set custom duration': 3.5,
+//     'modify idle weight': 0.0,
+//     'modify walk weight': 1.0,
+//     'modify run weight': 0.0,
+//     'modify time scale': 1.0,
+//   };
+
+//   folder1.add(settings, 'show model').onChange(showModel);
+//   folder1.add(settings, 'show skeleton').onChange(showSkeleton);
+//   folder2.add(settings, 'deactivate all');
+//   folder2.add(settings, 'activate all');
+//   folder3.add(settings, 'pause/continue');
+//   folder3.add(settings, 'make single step');
+//   folder3.add(settings, 'modify step size', 0.01, 0.1, 0.001);
+//   crossFadeControls.push(folder4.add(settings, 'from walk to idle'));
+//   crossFadeControls.push(folder4.add(settings, 'from idle to walk'));
+//   crossFadeControls.push(folder4.add(settings, 'from walk to run'));
+//   crossFadeControls.push(folder4.add(settings, 'from run to walk'));
+//   folder4.add(settings, 'use default duration');
+//   folder4.add(settings, 'set custom duration', 0, 10, 0.01);
+//   folder5
+//     .add(settings, 'modify idle weight', 0.0, 1.0, 0.01)
+//     .listen()
+//     .onChange(function (weight: any) {
+//       setWeight(idleAction, weight);
+//     });
+//   folder5
+//     .add(settings, 'modify walk weight', 0.0, 1.0, 0.01)
+//     .listen()
+//     .onChange(function (weight: any) {
+//       setWeight(walkAction, weight);
+//     });
+//   folder5
+//     .add(settings, 'modify run weight', 0.0, 1.0, 0.01)
+//     .listen()
+//     .onChange(function (weight: any) {
+//       setWeight(runAction, weight);
+//     });
+//   folder6
+//     .add(settings, 'modify time scale', 0.0, 1.5, 0.01)
+//     .onChange(modifyTimeScale);
+
+//   folder1.open();
+//   folder2.open();
+//   folder3.open();
+//   folder4.open();
+//   folder5.open();
+//   folder6.open();
+// }
+
+// function showModel(visibility: any) {
+//   model.visible = visibility;
+// }
+
+// function showSkeleton(visibility: any) {
+//   skeleton.visible = visibility;
+// }
+
+// function modifyTimeScale(speed: any) {
+//   mixer.timeScale = speed;
+// }
+
+// function deactivateAllActions() {
+//   actions.forEach(function (action: any) {
+//     action.stop();
+//   });
+// }
+
+// function activateAllActions() {
+//   setWeight(idleAction, settings['modify idle weight']);
+//   setWeight(walkAction, settings['modify walk weight']);
+//   setWeight(runAction, settings['modify run weight']);
+
+//   actions.forEach(function (action: any) {
+//     action.play();
+//   });
+// }
+
+// function pauseContinue() {
+//   if (singleStepMode) {
+//     singleStepMode = false;
+//     unPauseAllActions();
+//   } else {
+//     if (idleAction.paused) {
+//       unPauseAllActions();
+//     } else {
+//       pauseAllActions();
+//     }
+//   }
+// }
+
+// function pauseAllActions() {
+//   actions.forEach(function (action: any) {
+//     action.paused = true;
+//   });
+// }
+
+// function unPauseAllActions() {
+//   actions.forEach(function (action: any) {
+//     action.paused = false;
+//   });
+// }
+
+// function toSingleStepMode() {
+//   unPauseAllActions();
+
+//   singleStepMode = true;
+//   sizeOfNextStep = settings['modify step size'];
+// }
+
+// function prepareCrossFade(
+//   startAction: any,
+//   endAction: any,
+//   defaultDuration: any
+// ) {
+//   // Switch default / custom crossfade duration (according to the user's choice)
+
+//   const duration = setCrossFadeDuration(defaultDuration);
+
+//   // Make sure that we don't go on in singleStepMode, and that all actions are unpaused
+
+//   singleStepMode = false;
+//   unPauseAllActions();
+
+//   // If the current action is 'idle' (duration 4 sec), execute the crossfade immediately;
+//   // else wait until the current action has finished its current loop
+
+//   if (startAction === idleAction) {
+//     executeCrossFade(startAction, endAction, duration);
+//   } else {
+//     synchronizeCrossFade(startAction, endAction, duration);
+//   }
+// }
+
+// function setCrossFadeDuration(defaultDuration: any) {
+//   // Switch default crossfade duration <-> custom crossfade duration
+
+//   if (settings['use default duration']) {
+//     return defaultDuration;
+//   } else {
+//     return settings['set custom duration'];
+//   }
+// }
+
+// function synchronizeCrossFade(startAction: any, endAction: any, duration: any) {
+//   mixer.addEventListener('loop', onLoopFinished);
+
+//   function onLoopFinished(event: any) {
+//     if (event.action === startAction) {
+//       mixer.removeEventListener('loop', onLoopFinished);
+
+//       executeCrossFade(startAction, endAction, duration);
+//     }
+//   }
+// }
+
+// function executeCrossFade(startAction: any, endAction: any, duration: any) {
+//   // Not only the start action, but also the end action must get a weight of 1 before fading
+//   // (concerning the start action this is already guaranteed in this place)
+
+//   setWeight(endAction, 1);
+//   endAction.time = 0;
+
+//   // Crossfade with warping - you can also try without warping by setting the third parameter to false
+
+//   startAction.crossFadeTo(endAction, duration, true);
+// }
+
+// // This function is needed, since animationAction.crossFadeTo() disables its start action and sets
+// // the start action's timeScale to ((start animation's duration) / (end animation's duration))
+
+// function setWeight(action: any, weight: any) {
+//   action.enabled = true;
+//   action.setEffectiveTimeScale(1);
+//   action.setEffectiveWeight(weight);
+// }
+
+// // Called by the render loop
+
+// function updateWeightSliders() {
+//   settings['modify idle weight'] = idleWeight;
+//   settings['modify walk weight'] = walkWeight;
+//   settings['modify run weight'] = runWeight;
+// }
+
+// // Called by the render loop
+
+// function updateCrossFadeControls() {
+//   if (idleWeight === 1 && walkWeight === 0 && runWeight === 0) {
+//     crossFadeControls[0].disable();
+//     crossFadeControls[1].enable();
+//     crossFadeControls[2].disable();
+//     crossFadeControls[3].disable();
+//   }
+
+//   if (idleWeight === 0 && walkWeight === 1 && runWeight === 0) {
+//     crossFadeControls[0].enable();
+//     crossFadeControls[1].disable();
+//     crossFadeControls[2].enable();
+//     crossFadeControls[3].disable();
+//   }
+
+//   if (idleWeight === 0 && walkWeight === 0 && runWeight === 1) {
+//     crossFadeControls[0].disable();
+//     crossFadeControls[1].disable();
+//     crossFadeControls[2].disable();
+//     crossFadeControls[3].enable();
+//   }
+// }
+
+// function onWindowResize() {
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+// }
+
+// function animate() {
+//   // Render loop
+
+//   requestAnimationFrame(animate);
+
+//   idleWeight = idleAction.getEffectiveWeight();
+//   walkWeight = walkAction.getEffectiveWeight();
+//   runWeight = runAction.getEffectiveWeight();
+
+//   // Update the panel values if weights are modified from "outside" (by crossfadings)
+
+//   updateWeightSliders();
+
+//   // Enable/disable crossfade controls according to current weight values
+
+//   updateCrossFadeControls();
+
+//   // Get the time elapsed since the last frame, used for mixer update (if not in single step mode)
+
+//   let mixerUpdateDelta = clock.getDelta();
+
+//   // If in single step mode, make one step and then do nothing (until the user clicks again)
+
+//   if (singleStepMode) {
+//     mixerUpdateDelta = sizeOfNextStep;
+//     sizeOfNextStep = 0;
+//   }
+
+//   // Update the animation mixer, the stats panel, and render this frame
+
+//   mixer.update(mixerUpdateDelta);
+
+//   stats.update();
+
+//   renderer.render(scene, camera);
+// }
+
+// ---------------------------- //
+// Three.js SkinnedMesh Example //
+// ---------------------------- //
+
+import {
+  Bone,
+  Color,
+  CylinderGeometry,
+  DoubleSide,
+  Float32BufferAttribute,
+  MeshPhongMaterial,
+  PerspectiveCamera,
+  PointLight,
+  Scene,
+  SkinnedMesh,
+  Skeleton,
+  SkeletonHelper,
+  Vector3,
+  Uint16BufferAttribute,
+  WebGLRenderer,
+} from 'three';
+
+import { GUI } from 'three/examples/jsm/libs/lil-gui.module.min.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+
+let gui: any,
+  scene: any,
+  camera: any,
+  renderer: any,
+  orbit,
+  lights,
+  mesh: any,
+  bones,
+  skeletonHelper;
+
+const state = {
+  animateBones: false,
+};
+
+function initScene() {
+  gui = new GUI();
+
+  scene = new Scene();
+  scene.background = new Color(0x444444);
+
+  camera = new PerspectiveCamera(
+    75,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    200
+  );
+  camera.position.z = 30;
+  camera.position.y = 30;
+
+  renderer = new WebGLRenderer({ antialias: true });
+  renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
-  render();
+  document.body.appendChild(renderer.domElement);
+
+  orbit = new OrbitControls(camera, renderer.domElement);
+  // orbit.enableZoom = false;
+
+  lights = [];
+  lights[0] = new PointLight(0xffffff, 1, 0);
+  lights[1] = new PointLight(0xffffff, 1, 0);
+  lights[2] = new PointLight(0xffffff, 1, 0);
+
+  lights[0].position.set(0, 200, 0);
+  lights[1].position.set(100, 200, 100);
+  lights[2].position.set(-100, -200, -100);
+
+  scene.add(lights[0]);
+  scene.add(lights[1]);
+  scene.add(lights[2]);
+
+  window.addEventListener(
+    'resize',
+    function () {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    },
+    false
+  );
+
+  initBones();
+  setupDatGui();
 }
 
-const stats = new Stats();
-document.body.appendChild(stats.dom);
+function createGeometry(sizing: any) {
+  const geometry = new CylinderGeometry(
+    5, // radiusTop
+    5, // radiusBottom
+    sizing.height, // height
+    8, // radiusSegments
+    sizing.segmentCount * 3, // heightSegments
+    true // openEnded
+  );
 
-const gui = new GUI();
-const physicsFolder = gui.addFolder('Physics');
-physicsFolder.add(world.gravity, 'x', -10.0, 10.0, 0.1);
-physicsFolder.add(world.gravity, 'y', -10.0, 10.0, 0.1);
-physicsFolder.add(world.gravity, 'z', -10.0, 10.0, 0.1);
-physicsFolder.open();
+  const position = geometry.attributes.position;
 
-const clock = new THREE.Clock();
-let delta;
+  const vertex = new Vector3();
 
-const cannonDebugRenderer = new CannonDebugRenderer(scene, world);
+  const skinIndices = [];
+  const skinWeights = [];
 
-function animate() {
-  requestAnimationFrame(animate);
+  for (let i = 0; i < position.count; i++) {
+    vertex.fromBufferAttribute(position, i);
 
-  controls.update();
+    const y = vertex.y + sizing.halfHeight;
 
-  delta = Math.min(clock.getDelta(), 0.1);
-  world.step(delta);
+    const skinIndex = Math.floor(y / sizing.segmentHeight);
+    const skinWeight = (y % sizing.segmentHeight) / sizing.segmentHeight;
 
-  cannonDebugRenderer.update();
-
-  // Copy coordinates from Cannon to Three.js
-  if (monkeyLoaded) {
-    monkeyMeshes.forEach((m, i) => {
-      m.position.set(
-        monkeyBodies[i].position.x,
-        monkeyBodies[i].position.y,
-        monkeyBodies[i].position.z
-      );
-      m.quaternion.set(
-        monkeyBodies[i].quaternion.x,
-        monkeyBodies[i].quaternion.y,
-        monkeyBodies[i].quaternion.z,
-        monkeyBodies[i].quaternion.w
-      );
-    });
+    skinIndices.push(skinIndex, skinIndex + 1, 0, 0);
+    skinWeights.push(1 - skinWeight, skinWeight, 0, 0);
   }
 
-  render();
+  geometry.setAttribute('skinIndex', new Uint16BufferAttribute(skinIndices, 4));
+  geometry.setAttribute(
+    'skinWeight',
+    new Float32BufferAttribute(skinWeights, 4)
+  );
 
-  stats.update();
+  return geometry;
+}
+
+// function createBones(sizing: any) {
+//   bones = [];
+//   const bodyBone = new Bone();
+//   bodyBone.position.set(0, -16, 0);
+
+//   let prevBone = new Bone();
+//   bones.push(prevBone);
+//   prevBone.position.y = -sizing.halfHeight;
+//   console.log(prevBone.position);
+//   for (let i = 0; i < sizing.segmentCount; i++) {
+//     const bone = new Bone();
+//     bone.position.y = sizing.segmentHeight;
+//     bones.push(bone);
+//     prevBone.add(bone);
+//     prevBone = bone;
+//   }
+
+//   return bones;
+// }
+
+function createMesh(geometry: any, bones: any) {
+  const material = new MeshPhongMaterial({
+    color: 0x156289,
+    emissive: 0x072534,
+    side: DoubleSide,
+    flatShading: true,
+  });
+
+  const mesh = new SkinnedMesh(geometry, material);
+  const skeleton = new Skeleton(bones);
+
+  for (let i = 0; i < bones.length; i++) {
+    const bone = bones[i];
+
+    // Create a separate cylinder geometry for each bone segment
+    const sizing = {
+      segmentHeight: bone.position.length(),
+      segmentCount: 1,
+      height: bone.position.length(),
+      halfHeight: bone.position.length() * 0.5,
+    };
+    const boneGeometry = createGeometry(sizing);
+
+    // Create a mesh for the current bone segment
+    const boneMesh = new SkinnedMesh(boneGeometry, material);
+    boneMesh.bind(skeleton);
+    bone.add(boneMesh);
+  }
+
+  mesh.add(bones[0]);
+
+  mesh.bind(skeleton);
+
+  skeletonHelper = new SkeletonHelper(mesh);
+  // @ts-ignore
+  skeletonHelper.material.linewidth = 2;
+  scene.add(skeletonHelper);
+
+  return mesh;
+}
+
+function setupDatGui() {
+  let folder = gui.addFolder('General Options');
+
+  folder.add(state, 'animateBones');
+  folder.controllers[0].name('Animate Bones');
+
+  folder.add(mesh, 'pose');
+  folder.controllers[1].name('.pose()');
+
+  const bones = mesh.skeleton.bones;
+
+  for (let i = 0; i < bones.length; i++) {
+    const bone = bones[i];
+
+    folder = gui.addFolder('Bone ' + i);
+
+    folder.add(bone.position, 'x', -10 + bone.position.x, 10 + bone.position.x);
+    folder.add(bone.position, 'y', -10 + bone.position.y, 10 + bone.position.y);
+    folder.add(bone.position, 'z', -10 + bone.position.z, 10 + bone.position.z);
+
+    folder.add(bone.rotation, 'x', -6.28, 0);
+    folder.add(bone.rotation, 'y', -Math.PI * 0.5, Math.PI * 0.5);
+    folder.add(bone.rotation, 'z', -Math.PI * 0.5, Math.PI * 0.5);
+
+    folder.add(bone.scale, 'x', 0, 2);
+    folder.add(bone.scale, 'y', 0, 2);
+    folder.add(bone.scale, 'z', 0, 2);
+
+    folder.controllers[0].name('position.x');
+    folder.controllers[1].name('position.y');
+    folder.controllers[2].name('position.z');
+
+    folder.controllers[3].name('rotation.x');
+    folder.controllers[4].name('rotation.y');
+    folder.controllers[5].name('rotation.z');
+
+    folder.controllers[6].name('scale.x');
+    folder.controllers[7].name('scale.y');
+    folder.controllers[8].name('scale.z');
+  }
+}
+
+function initBones() {
+  const segmentHeight = 8;
+  const segmentCount = 1;
+  const height = segmentHeight * segmentCount;
+  const halfHeight = height * 0.5;
+
+  const sizing = {
+    segmentHeight: segmentHeight,
+    segmentCount: segmentCount,
+    height: height,
+    halfHeight: halfHeight,
+  };
+
+  const geometry = createGeometry(sizing);
+  const bodyBone = new Bone();
+
+  const headBone = new Bone();
+
+  const leftShoulderBone = new Bone();
+  const leftHandBone = new Bone();
+
+  const rightShoulderBone = new Bone();
+  const rightHandBone = new Bone();
+
+  const leftHipBone = new Bone();
+  const leftFootBone = new Bone();
+
+  const rightHipBone = new Bone();
+  const rightFootBone = new Bone();
+
+  bodyBone.position.set(0, 1, 0);
+
+  headBone.position.set(0, 2.5, 0);
+
+  leftShoulderBone.position.set(6, 6, 0);
+  leftHandBone.position.set(0, -6, 0);
+
+  rightShoulderBone.position.set(-6, 6, 0);
+  rightHandBone.position.set(0, -6, 0);
+
+  leftHipBone.position.set(2, -6, 0);
+  leftFootBone.position.set(0, -6, 0);
+
+  rightHipBone.position.set(-2, -6, 0);
+  rightFootBone.position.set(0, -6, 0);
+
+  bodyBone.add(headBone);
+
+  bodyBone.add(leftShoulderBone);
+  leftShoulderBone.add(leftHandBone);
+
+  bodyBone.add(rightShoulderBone);
+  rightShoulderBone.add(rightHandBone);
+
+  bodyBone.add(leftHipBone);
+  leftHipBone.add(leftFootBone);
+
+  bodyBone.add(rightHipBone);
+  rightHipBone.add(rightFootBone);
+
+  const bones = [];
+  bones.push(bodyBone);
+  bones.push(headBone);
+  bones.push(leftShoulderBone);
+  bones.push(leftHandBone);
+  bones.push(rightShoulderBone);
+  bones.push(rightHandBone);
+  bones.push(leftHipBone);
+  bones.push(leftFootBone);
+  bones.push(rightHipBone);
+  bones.push(rightFootBone);
+
+  mesh = createMesh(geometry, bones);
+
+  mesh.scale.multiplyScalar(1);
+  scene.add(mesh);
 }
 
 function render() {
+  requestAnimationFrame(render);
+
+  const time = Date.now() * 0.001;
+
+  //Wiggle the bones
+  if (state.animateBones) {
+    for (let i = 0; i < mesh.skeleton.bones.length; i++) {
+      mesh.skeleton.bones[i].rotation.z =
+        (Math.sin(time) * 2) / mesh.skeleton.bones.length;
+    }
+  }
+
   renderer.render(scene, camera);
 }
-animate();
+
+initScene();
+render();
